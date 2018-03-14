@@ -5,16 +5,38 @@ VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "attys-ecg", "attys-ecg.vcxproj", "{438BBF23-1470-34E7-A732-4E8819F66E74}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "installer", "installer\installer.vdproj", "{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{438BBF23-1470-34E7-A732-4E8819F66E74}.Debug|Win32.ActiveCfg = Debug|x64
 		{438BBF23-1470-34E7-A732-4E8819F66E74}.Debug|x64.ActiveCfg = Debug|x64
 		{438BBF23-1470-34E7-A732-4E8819F66E74}.Debug|x64.Build.0 = Debug|x64
+		{438BBF23-1470-34E7-A732-4E8819F66E74}.Debug|x86.ActiveCfg = Debug|x64
+		{438BBF23-1470-34E7-A732-4E8819F66E74}.Release|Win32.ActiveCfg = Release|x64
 		{438BBF23-1470-34E7-A732-4E8819F66E74}.Release|x64.ActiveCfg = Release|x64
 		{438BBF23-1470-34E7-A732-4E8819F66E74}.Release|x64.Build.0 = Release|x64
+		{438BBF23-1470-34E7-A732-4E8819F66E74}.Release|x86.ActiveCfg = Release|x64
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Debug|Win32.ActiveCfg = Debug
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Debug|Win32.Build.0 = Debug
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Debug|x64.ActiveCfg = Debug
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Debug|x64.Build.0 = Debug
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Debug|x86.ActiveCfg = Debug
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Debug|x86.Build.0 = Debug
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Release|Win32.ActiveCfg = Release
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Release|Win32.Build.0 = Release
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Release|x64.ActiveCfg = Release
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Release|x64.Build.0 = Release
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Release|x86.ActiveCfg = Release
+		{B5208F60-1BA3-413E-AD13-E41D8DDCAFC3}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

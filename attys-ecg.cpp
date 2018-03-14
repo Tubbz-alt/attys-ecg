@@ -178,7 +178,7 @@ MainWindow::MainWindow( QWidget *parent ) :
 
 	bpmLabel = new QLabel(ECGfunGroup);
 	ecgFunLayout->addWidget(bpmLabel);
-	bpmLabel->setFont(QFont("Courier",24));
+	bpmLabel->setFont(QFont("Courier",18));
 	
 	// Generate timer event every 50ms
 	startTimer(50);
@@ -190,6 +190,9 @@ MainWindow::~MainWindow()
 {
 	attysScan.attysComm[0]->unregisterCallback();
 	attysScan.attysComm[0]->quit();
+	if (ecgFile) {
+		fclose(ecgFile);
+	}
 }
 
 void MainWindow::slotSaveECG()
@@ -198,29 +201,29 @@ void MainWindow::slotSaveECG()
 	QString filters(tr("tab separated values (*.tsv)"));
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
-        dialog.setNameFilter(filters);
-        dialog.setViewMode(QFileDialog::Detail);
+	dialog.setNameFilter(filters);
+	dialog.setViewMode(QFileDialog::Detail);
 
 	if (dialog.exec()) {
-		QString fileName = dialog.selectedFiles()[0];
-		if( !fileName.isNull() ) {
-				QString extension = dialog.selectedNameFilter();
-				extension = extension.mid(extension.indexOf("."), 4);
-				if (fileName.indexOf(extension) == -1) {
-					fileName = fileName + extension;
-				}
-				ecgFile = fopen(fileName.toLocal8Bit().constData(),"wt");
-				if (ecgFile) {
-					recordECG->setEnabled( true );
-				}
+		fileName = dialog.selectedFiles()[0];
+		if (!fileName.isNull()) {
+			QString extension = dialog.selectedNameFilter();
+			extension = extension.mid(extension.indexOf("."), 4);
+			if (fileName.indexOf(extension) == -1) {
+				fileName = fileName + extension;
+			}
+			ecgFile = fopen(fileName.toLocal8Bit().constData(), "wt");
+			if (ecgFile) {
+				recordECG->setEnabled(true);
+			}
 		}
-	}	
+	}
 }
 
 void MainWindow::setNotch(double f) {
-	iirnotch1->setup (IIRORDER, sampling_rate, f, 2.5);
-	iirnotch2->setup (IIRORDER, sampling_rate, f, 2.5);
-}	
+	iirnotch1->setup(IIRORDER, sampling_rate, f, 2.5);
+	iirnotch2->setup(IIRORDER, sampling_rate, f, 2.5);
+}
 
 void MainWindow::slotSelectNotchFreq(int f) {
 	switch (f) {
@@ -240,16 +243,16 @@ void MainWindow::slotClearBPM()
 
 void MainWindow::slotRecordECG()
 {
-	if (recordingOn && ecgFile) {
-		recordECG->setEnabled( false );
-		fclose(ecgFile);
-		ecgFile = NULL;
+	if (recordingOn && (!(recordECG->isChecked()))) {
+		recordECG->setEnabled(false);
 	}
 	recordingOn = recordECG->isChecked();
+	tRec = 0;
 	if (recordingOn) {
-		statusLabel->setText("RECORDING");
-	} else {
-		statusLabel->setText("");
+		setWindowTitle(QString("attys-ecg: recording ") + fileName);
+	}
+	else {
+		setWindowTitle(QString("attys-ecg"));
 	}
 }
 
@@ -258,29 +261,36 @@ void MainWindow::timerEvent(QTimerEvent *) {
 	dataPlotII->replot();
 	dataPlotIII->replot();
 	dataPlotBPM->replot();
+	if (recordingOn) {
+		QString tRecString = QString::number(((int)tRec));
+		statusLabel->setText("Rec: t=" + tRecString+" sec");
+	}
+	else {
+		statusLabel->setText("");
+	}
 }
 
 
-void MainWindow::hasData(float,float *sample)
+void MainWindow::hasData(float, float *sample)
 {
 	double y1 = sample[AttysComm::INDEX_Analogue_channel_1];
 	double y2 = sample[AttysComm::INDEX_Analogue_channel_2];
 
 	// highpass filtering of the data
-	y1=iirhp1->filter(y1);
-	y2=iirhp2->filter(y2);
+	y1 = iirhp1->filter(y1);
+	y2 = iirhp2->filter(y2);
 
 	// removing 50Hz notch
-	II=iirnotch1->filter(y1);
-	III=iirnotch2->filter(y2);
+	II = iirnotch1->filter(y1);
+	III = iirnotch2->filter(y2);
 
 	rr_det->detect(II);
 
-	I = II - III;	
+	I = II - III;
 	aVR = III / 2 - II;
 	aVL = II / 2 - III;
 	aVF = II / 2 + III / 2;
-	
+
 	// plot the data
 	const double scaling = 1000;
 	dataPlotI->setNewData(I*scaling);
@@ -288,21 +298,26 @@ void MainWindow::hasData(float,float *sample)
 	dataPlotIII->setNewData(III*scaling);
 
 	// Are we recording?
-	if( ecgFile )
+	if (ecgFile)
 	{
 		char s = '\t';
 		double t = (double)sampleNumber / sampling_rate;
 		fprintf(ecgFile, "%e%c", t, s);
-                fprintf(ecgFile, "%e%c", I, s);
-                fprintf(ecgFile, "%e%c", II, s);
-                fprintf(ecgFile, "%e%c", III, s);
-                fprintf(ecgFile, "%e%c", aVR, s);
-                fprintf(ecgFile, "%e%c", aVL, s);
-                fprintf(ecgFile, "%e%c", aVF, s);
-                fprintf(ecgFile, "%f\n", bpm);
+		fprintf(ecgFile, "%e%c", I, s);
+		fprintf(ecgFile, "%e%c", II, s);
+		fprintf(ecgFile, "%e%c", III, s);
+		fprintf(ecgFile, "%e%c", aVR, s);
+		fprintf(ecgFile, "%e%c", aVL, s);
+		fprintf(ecgFile, "%e%c", aVF, s);
+		fprintf(ecgFile, "%f\n", bpm);
+		if ((!recordingOn) && ecgFile) {
+			fclose(ecgFile);
+			ecgFile = NULL;
+		}
 	}
     
 	sampleNumber++;
+	tRec = tRec + 1.0 / sampling_rate;
 }
 
 void  MainWindow::hasRpeak(long,

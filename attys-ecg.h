@@ -60,6 +60,8 @@ class MainWindow : public QWidget
 
   FILE* ecgFile = NULL;
   int recordingOn = 0;
+  double tRec = 0;
+  QString fileName;
 
   QPushButton* recordECG;
   QPushButton* clearBPM;

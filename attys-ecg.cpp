@@ -125,7 +125,7 @@ MainWindow::MainWindow( QWidget *parent ) :
 
 	plotLayout->addSpacing(20);
 
-	dataPlotBPM = new DataPlot(60,
+	dataPlotBPM = new DataPlot(120,
 				   1,
 				   0,
 				   200,

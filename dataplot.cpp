@@ -1,6 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2003 by Matthias H. Hennig                              *
  *   hennig@cn.stir.ac.uk                                                  *
+ *   Copyright (C) 2018 by Bernd Porr, mail@berndporr.me.uk                *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -15,6 +16,8 @@ DataPlot::DataPlot(double _maxTime,
 		   double _minY,
 		   double _maxY,
 		   const char* title,
+		   const char* xAxisLabel,
+		   const char* yAxisLabel,
 		   QWidget *parent) :
 	QwtPlot(parent)
 {
@@ -25,26 +28,26 @@ DataPlot::DataPlot(double _maxTime,
 	length = maxTime * samplingRate;
 	xData = new double[length];
 	yData = new double[length];
-	for(int i=0; i<length; i++) {
-                xData[i] = i/samplingRate;
-                yData[i] = 0;
-	}
+	reset();
 		
 	setAxisScale(QwtPlot::yLeft,minY,maxY);
 
 	setTitle(title);
-	setAxisTitle(QwtPlot::xBottom, "Time/ms");
-	setAxisTitle(QwtPlot::yLeft, "differential voltage / mV");
-	setSizePolicy ( QSizePolicy(QSizePolicy::Minimum,
-			      QSizePolicy::Fixed ) );
-
-	// setAxisAutoScale(QwtPlot::yLeft,true);
+	setAxisTitle(QwtPlot::xBottom, xAxisLabel);
+	setAxisTitle(QwtPlot::yLeft, yAxisLabel);
 
 	// Insert new curve for raw data
 	dataCurve = new QwtPlotCurve(title);
-	dataCurve->setPen( QPen(Qt::red, 2) );
+	dataCurve->setPen( QPen(Qt::blue, 2) );
 	dataCurve->setRawSamples(xData, yData, length);
 	dataCurve->attach(this);
+}
+
+void DataPlot::reset() {
+	for(int i=0; i<length; i++) {
+                xData[i] = i/samplingRate;
+                yData[i] = 0;
+	}
 }
 
 void DataPlot::setNewData(double yNew) {

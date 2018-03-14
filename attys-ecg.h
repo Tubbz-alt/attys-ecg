@@ -18,15 +18,16 @@
 #include <QTextEdit>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QLabel>
 
 #include "AttysComm.h"
 #include <qwt_counter.h>
 #include <qwt_plot_marker.h>
 
 #include "dataplot.h"
+#include "ecg_rr_det.h"
 #include <Iir.h>
 
-#define NOTCH_F 50 // filter out 50Hz noise
 #define IIRORDER 2
 
 class MainWindow : public QWidget
@@ -37,6 +38,7 @@ class MainWindow : public QWidget
   DataPlot *dataPlotI;
   DataPlot *dataPlotII;
   DataPlot *dataPlotIII;
+  DataPlot *dataPlotBPM;
 
   double I,II,III;
   double aVR,aVL,aVF;
@@ -54,19 +56,25 @@ class MainWindow : public QWidget
   Iir::Butterworth::BandStop<IIRORDER>* iirnotch2;
   Iir::Butterworth::HighPass<IIRORDER>* iirhp2;
 
+  ECG_rr_det* rr_det;
+
   FILE* ecgFile = NULL;
   int recordingOn = 0;
 
   QPushButton* recordECG;
-  QPushButton* clearECG;
+  QPushButton* clearBPM;
   QPushButton* saveECG;
+  QComboBox* notchFreq;
+  QLabel* statusLabel;
+  QLabel* bpmLabel;
 
 private slots:
 
   // actions:
-  void slotClearECG();
-  void slotRunECG();
+  void slotClearBPM();
+  void slotRecordECG();
   void slotSaveECG();
+  void slotSelectNotchFreq(int);
 
 protected:
 
@@ -80,12 +88,29 @@ protected:
 		  mainwindow->hasData(ts,data);
 	  };
   };
-
   void hasData(float,float *sample);
-
   AttysCallback* attysCallback;
 
-  void initData();
+  struct BPMCallback : ECG_rr_det::RRlistener {
+	  MainWindow* mainwindow;
+	  BPMCallback(MainWindow* _mainwindow) { mainwindow = _mainwindow; };
+	  void hasRpeak(long samplenumber,
+			float filtBpm,
+			float unFiltBpm,
+			double amplitude,
+			double confidence) {
+		  mainwindow->hasRpeak(samplenumber,filtBpm,unFiltBpm,amplitude,confidence);
+	  };
+  };
+  void hasRpeak(long samplenumber,
+		float filtBpm,
+		float unFiltBpm,
+		double amplitude,
+		double confidence);
+  BPMCallback* bPMCallback;
+
+
+  void setNotch(double f);
 
 signals:
   void sweepStarted(int);

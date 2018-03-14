@@ -18,6 +18,7 @@ SOURCES = \
     dataplot.cpp \
     main.cpp \
     attys-ecg.cpp \
+    ecg_rr_det.cpp \
     ../AttysComm/c/AttysComm.cpp \
     ../AttysComm/c/AttysScan.cpp \
     ../AttysComm/c/base64.c
@@ -25,6 +26,7 @@ SOURCES = \
 HEADERS = \
     attys-ecg.h \
     dataplot.h \
+    ecg_rr_det.h \
     ../AttysComm/c/AttysComm.h \
     ../AttysComm/c/AttysScan.h \
     ../AttysComm/c/base64.h

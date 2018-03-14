@@ -19,6 +19,8 @@
 #include <QTextStream>
 #include <QComboBox>
 #include <QTimer>
+#include <QApplication>
+#include <QDesktopWidget>
 
 #include "AttysComm.h"
 #include "AttysScan.h"
@@ -29,19 +31,27 @@ MainWindow::MainWindow( QWidget *parent ) :
 	attysScan.attysComm[0]->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);
 	sampling_rate = attysScan.attysComm[0]->getSamplingRateInHz();
 
+	rr_det =  new ECG_rr_det(sampling_rate);
+	bPMCallback = new BPMCallback(this);
+	rr_det->setRrListener(bPMCallback);
+
 	attysCallback = new AttysCallback(this);
 	attysScan.attysComm[0]->registerCallback(attysCallback);
 
 	// set the PGA to max gain
 	attysScan.attysComm[0]->setAdc0_gain_index(AttysComm::ADC_GAIN_6);
+
+	// connect both channels so that we can use just 3 electrodes
+	attysScan.attysComm[0]->setAdc0_mux_index(AttysComm::ADC_MUX_ECG_EINTHOVEN);
+	attysScan.attysComm[0]->setAdc1_mux_index(AttysComm::ADC_MUX_ECG_EINTHOVEN);
 	
-	// 50Hz or 60Hz mains notch filter (see header)
+	// 50Hz or 60Hz mains notch filter
 	iirnotch1 = new Iir::Butterworth::BandStop<IIRORDER>;
 	assert( iirnotch1 != NULL );
-	iirnotch1->setup (IIRORDER, sampling_rate, NOTCH_F, 2.5);
 	iirnotch2 = new Iir::Butterworth::BandStop<IIRORDER>;
 	assert( iirnotch2 != NULL );
-	iirnotch2->setup (IIRORDER, sampling_rate, NOTCH_F, 2.5);
+	// we set it to 50Hz initially
+	setNotch(50);
 
 	// highpass
 	iirhp1 = new Iir::Butterworth::HighPass<2>;
@@ -56,7 +66,8 @@ MainWindow::MainWindow( QWidget *parent ) :
 	QHBoxLayout *mainLayout = new QHBoxLayout( this );
 
 	QVBoxLayout *controlLayout = new QVBoxLayout;
-
+	controlLayout->setAlignment(Qt::AlignTop);
+	
 	mainLayout->addLayout(controlLayout);
 	
 	QVBoxLayout *plotLayout = new QVBoxLayout;
@@ -69,13 +80,19 @@ MainWindow::MainWindow( QWidget *parent ) :
 	double maxTime = 5;
 	double minRange = -2;
 	double maxRange = 2;
+	const char* xlabel = "t/s";
+	QDesktopWidget *mydesktop = QApplication::desktop();
+	int h = mydesktop->height() / 5;
+	int w = mydesktop->width();
 	dataPlotI = new DataPlot(maxTime,
 				 sampling_rate,
 				 minRange,
 				 maxRange,
-				 "I",
+				 "Einthoven I",
+				 xlabel,
+				 "I/mV",
 				 this);
-	dataPlotI->setMaximumSize(10000,300);
+	dataPlotI->setMaximumSize(w,h);
 	dataPlotI->setStyleSheet(styleSheet);
 	plotLayout->addWidget(dataPlotI);
 	dataPlotI->show();
@@ -84,9 +101,11 @@ MainWindow::MainWindow( QWidget *parent ) :
 				  sampling_rate,
 				  minRange,
 				  maxRange,
-				  "II",
+				  "Einthoven II",
+				  xlabel,
+				  "II/mV",
 				  this);
-	dataPlotII->setMaximumSize(10000,300);
+	dataPlotII->setMaximumSize(w,h);
 	dataPlotII->setStyleSheet(styleSheet);
 	plotLayout->addWidget(dataPlotII);
 	dataPlotII->show();
@@ -95,42 +114,72 @@ MainWindow::MainWindow( QWidget *parent ) :
 				   sampling_rate,
 				   minRange,
 				   maxRange,
-				   "III",
+				   "Einthoven III",
+				   xlabel,
+				   "III/mV",
 				   this);
-	dataPlotIII->setMaximumSize(10000,300);
+	dataPlotIII->setMaximumSize(w,h);
 	dataPlotIII->setStyleSheet(styleSheet);
 	plotLayout->addWidget(dataPlotIII);
 	dataPlotIII->show();
 
 	plotLayout->addSpacing(20);
 
+	dataPlotBPM = new DataPlot(60,
+				   1,
+				   0,
+				   200,
+				   "Heartrate",
+				   "RR number",
+				   "Heartrate/bpm",
+				   this);
+	dataPlotBPM->setMaximumSize(w,h);
+	dataPlotBPM->setStyleSheet(styleSheet);
+	plotLayout->addWidget(dataPlotBPM);
+	dataPlotBPM->show();
+
 
 	/*---- Buttons ----*/
 
-	QGroupBox   *ECGfunGroup  = new QGroupBox( "Actions", this );
+	QGroupBox   *ECGfunGroup  = new QGroupBox( "Attys ECG", this );
 	QVBoxLayout *ecgFunLayout = new QVBoxLayout;
+	ecgFunLayout->setAlignment(Qt::AlignTop);
 
 	ECGfunGroup->setLayout(ecgFunLayout);
 	ECGfunGroup->setAlignment(Qt::AlignJustify);
 	ECGfunGroup->setSizePolicy( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed) );
 	controlLayout->addWidget( ECGfunGroup );
 
-	recordECG = new QPushButton(ECGfunGroup);
-	recordECG->setText("Rec on/off");
-	recordECG->setCheckable(true);
-	ecgFunLayout->addWidget(recordECG);
-	connect(recordECG, SIGNAL(clicked()), SLOT(slotRunECG()));
+	notchFreq = new QComboBox(ECGfunGroup);
+        notchFreq->addItem(tr("50Hz bandstop"));
+        notchFreq->addItem(tr("60Hz bandstop"));
+        ecgFunLayout->addWidget(notchFreq);
+        connect(  notchFreq, SIGNAL(currentIndexChanged(int)), SLOT(slotSelectNotchFreq(int)) );
 
-	clearECG = new QPushButton(ECGfunGroup);
-	clearECG->setText("clear data");
-	ecgFunLayout->addWidget(clearECG);
-	connect(clearECG, SIGNAL(clicked()), SLOT(slotClearECG()));
-	
 	saveECG = new QPushButton(ECGfunGroup);
-	saveECG->setText("save data");
+	saveECG->setText("Filename");
 	ecgFunLayout->addWidget(saveECG);
 	connect(saveECG, SIGNAL(clicked()), SLOT(slotSaveECG()));
 
+	recordECG = new QPushButton(ECGfunGroup);
+	recordECG->setText("Record on/off");
+	recordECG->setCheckable(true);
+	recordECG->setEnabled( false );
+	ecgFunLayout->addWidget(recordECG);
+	connect(recordECG, SIGNAL(clicked()), SLOT(slotRecordECG()));
+
+	statusLabel = new QLabel(ECGfunGroup);
+	ecgFunLayout->addWidget(statusLabel);
+	
+	clearBPM = new QPushButton(ECGfunGroup);
+	clearBPM->setText("clear BPM plot");
+	ecgFunLayout->addWidget(clearBPM);
+	connect(clearBPM, SIGNAL(clicked()), SLOT(slotClearBPM()));
+
+	bpmLabel = new QLabel(ECGfunGroup);
+	ecgFunLayout->addWidget(bpmLabel);
+	bpmLabel->setFont(QFont("Courier",24));
+	
 	// Generate timer event every 50ms
 	startTimer(50);
 
@@ -145,29 +194,50 @@ MainWindow::~MainWindow()
 
 void MainWindow::slotSaveECG()
 {
-	QString fileName = QFileDialog::getSaveFileName();
-	
+	if (recordingOn) return;
+	QString fileName = QFileDialog::getSaveFileName();	
 	if( !fileName.isNull() )
 	{
-		//
+		ecgFile = fopen(fileName.toLocal8Bit().constData(),"wt");
+		if (ecgFile) {
+			recordECG->setEnabled( true );
+		}
 	}
 }
 
-void MainWindow::slotClearECG()
-{
-	sampleNumber = 0;
+void MainWindow::setNotch(double f) {
+	iirnotch1->setup (IIRORDER, sampling_rate, f, 2.5);
+	iirnotch2->setup (IIRORDER, sampling_rate, f, 2.5);
+}	
+
+void MainWindow::slotSelectNotchFreq(int f) {
+	switch (f) {
+	case 0:
+		setNotch(50);
+		break;
+	case 1:
+		setNotch(60);
+		break;
+	}
 }
 
-void MainWindow::slotRunECG()
+void MainWindow::slotClearBPM()
 {
-	// toggle ECG recording
-	if(!recordingOn)
-	{
-		recordingOn = 1;
+	dataPlotBPM->reset();
+}
+
+void MainWindow::slotRecordECG()
+{
+	if (recordingOn && ecgFile) {
+		recordECG->setEnabled( false );
+		fclose(ecgFile);
+		ecgFile = NULL;
 	}
-	else
-	{
-		recordingOn = 0;
+	recordingOn = recordECG->isChecked();
+	if (recordingOn) {
+		statusLabel->setText("RECORDING");
+	} else {
+		statusLabel->setText("");
 	}
 }
 
@@ -175,21 +245,24 @@ void MainWindow::timerEvent(QTimerEvent *) {
 	dataPlotI->replot();
 	dataPlotII->replot();
 	dataPlotIII->replot();
+	dataPlotBPM->replot();
 }
 
 
 void MainWindow::hasData(float,float *sample)
 {
-	float y1 = sample[AttysComm::INDEX_Analogue_channel_1];
-	float y2 = sample[AttysComm::INDEX_Analogue_channel_2];
+	double y1 = sample[AttysComm::INDEX_Analogue_channel_1];
+	double y2 = sample[AttysComm::INDEX_Analogue_channel_2];
 
 	// highpass filtering of the data
 	y1=iirhp1->filter(y1);
-	y2=iirhp1->filter(y2);
+	y2=iirhp2->filter(y2);
 
 	// removing 50Hz notch
 	II=iirnotch1->filter(y1);
-	III=iirnotch1->filter(y2);
+	III=iirnotch2->filter(y2);
+
+	rr_det->detect(II);
 
 	I = II - III;	
 	aVR = III / 2 - II;
@@ -197,9 +270,10 @@ void MainWindow::hasData(float,float *sample)
 	aVF = II / 2 + III / 2;
 	
 	// plot the data
-	dataPlotI->setNewData(I);
-	dataPlotII->setNewData(II);
-	dataPlotIII->setNewData(III);
+	const double scaling = 1000;
+	dataPlotI->setNewData(I*scaling);
+	dataPlotII->setNewData(II*scaling);
+	dataPlotIII->setNewData(III*scaling);
 
 	// Are we recording?
 	if( ecgFile )
@@ -213,8 +287,21 @@ void MainWindow::hasData(float,float *sample)
                 fprintf(ecgFile, "%e%c", aVR, s);
                 fprintf(ecgFile, "%e%c", aVL, s);
                 fprintf(ecgFile, "%e%c", aVF, s);
-                fprintf(ecgFile, "%f", bpm);
+                fprintf(ecgFile, "%f\n", bpm);
 	}
     
 	sampleNumber++;
+}
+
+void  MainWindow::hasRpeak(long,
+			   float filtBpm,
+			   float,
+			   double,
+			   double) {
+	//fprintf(stderr,"BPM = %f\n",filtBpm);
+	bpm = filtBpm;
+	dataPlotBPM->setNewData(bpm);
+	char tmp[16];
+	sprintf(tmp,"%03d BPM",(int)bpm);
+	bpmLabel->setText(tmp);
 }

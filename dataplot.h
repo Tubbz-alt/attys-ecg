@@ -50,11 +50,15 @@ public:
 		 double _minY,
 		 double _maxY,
 		 const char* title,
+		 const char* xAxisLabel,
+		 const char* yAxisLabel,
 		 QWidget *parent = 0);
 	
 	void setLength(int length);
 	
 	void setNewData(double yNew);
+
+	void reset();
 
 };
 

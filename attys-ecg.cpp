@@ -195,14 +195,26 @@ MainWindow::~MainWindow()
 void MainWindow::slotSaveECG()
 {
 	if (recordingOn) return;
-	QString fileName = QFileDialog::getSaveFileName();	
-	if( !fileName.isNull() )
-	{
-		ecgFile = fopen(fileName.toLocal8Bit().constData(),"wt");
-		if (ecgFile) {
-			recordECG->setEnabled( true );
+	QString filters(tr("tab separated values (*.tsv)"));
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+        dialog.setNameFilter(filters);
+        dialog.setViewMode(QFileDialog::Detail);
+
+	if (dialog.exec()) {
+		QString fileName = dialog.selectedFiles()[0];
+		if( !fileName.isNull() ) {
+				QString extension = dialog.selectedNameFilter();
+				extension = extension.mid(extension.indexOf("."), 4);
+				if (fileName.indexOf(extension) == -1) {
+					fileName = fileName + extension;
+				}
+				ecgFile = fopen(fileName.toLocal8Bit().constData(),"wt");
+				if (ecgFile) {
+					recordECG->setEnabled( true );
+				}
 		}
-	}
+	}	
 }
 
 void MainWindow::setNotch(double f) {

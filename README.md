@@ -3,7 +3,7 @@
 ECG app for [Attys](http://www.attys.tech)
 for Windows/Linux
 
-alpha!
+beta!
 
 # Installation
 

@@ -1,6 +1,7 @@
 #include "ecg_rr_det.h"
 
 #include <math.h>
+#include <algorithm>
 
 void ECG_rr_det::init(float _samplingrateInHz, int _medianFilterSize) {
         samplingRateInHz = _samplingrateInHz;
@@ -66,6 +67,7 @@ void ECG_rr_det::detect(float v) {
 					for (int i = 0; i < medianFilterSize; i++) {
 						sortBuffer[i] = hrBuffer[i];
 					}
+					std::sort(sortBuffer,sortBuffer+medianFilterSize);
 					//Arrays.sort(sortBuffer);
 					filtBPM = sortBuffer[(int) floor(medianFilterSize / 2)];
 					if (filtBPM > 0) {

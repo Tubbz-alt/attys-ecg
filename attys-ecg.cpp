@@ -29,8 +29,6 @@ MainWindow::MainWindow( QWidget *parent ) :
 	attysScan.attysComm[0]->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);
 	sampling_rate = attysScan.attysComm[0]->getSamplingRateInHz();
 
-	ecgLength = DEFAULT_SWEEP_LENGTH / (1000 / sampling_rate);
-
 	attysCallback = new AttysCallback(this);
 	attysScan.attysComm[0]->registerCallback(attysCallback);
 
@@ -53,8 +51,6 @@ MainWindow::MainWindow( QWidget *parent ) :
 	assert( iirhp2 != NULL );
 	iirhp2->setup (IIRORDER, sampling_rate, 0.5);
 
-	initData();
-
 	char styleSheet[] = "padding:0px;margin:0px;border:0px;";
 
 	QHBoxLayout *mainLayout = new QHBoxLayout( this );
@@ -69,23 +65,48 @@ MainWindow::MainWindow( QWidget *parent ) :
 	
 	mainLayout->setStretchFactor(controlLayout,1);
 	mainLayout->setStretchFactor(plotLayout,4);
+
+	double maxTime = 5;
+	double minRange = -2;
+	double maxRange = 2;
+	dataPlotI = new DataPlot(maxTime,
+				 sampling_rate,
+				 minRange,
+				 maxRange,
+				 "I",
+				 this);
+	dataPlotI->setMaximumSize(10000,300);
+	dataPlotI->setStyleSheet(styleSheet);
+	plotLayout->addWidget(dataPlotI);
+	dataPlotI->show();
+
+	dataPlotII = new DataPlot(maxTime,
+				  sampling_rate,
+				  minRange,
+				  maxRange,
+				  "II",
+				  this);
+	dataPlotII->setMaximumSize(10000,300);
+	dataPlotII->setStyleSheet(styleSheet);
+	plotLayout->addWidget(dataPlotII);
+	dataPlotII->show();
 	
-	// two plots
-	RawDataPlot = new DataPlot(xData, yData, ecgLength, 
-				   attysScan.attysComm[0]->getADCFullScaleRange(0),
-				   -attysScan.attysComm[0]->getADCFullScaleRange(0),
+	dataPlotIII = new DataPlot(maxTime,
+				   sampling_rate,
+				   minRange,
+				   maxRange,
+				   "III",
 				   this);
-	RawDataPlot->setMaximumSize(10000,300);
-	RawDataPlot->setStyleSheet(styleSheet);
-	plotLayout->addWidget(RawDataPlot);
-	RawDataPlot->show();
+	dataPlotIII->setMaximumSize(10000,300);
+	dataPlotIII->setStyleSheet(styleSheet);
+	plotLayout->addWidget(dataPlotIII);
+	dataPlotIII->show();
 
 	plotLayout->addSpacing(20);
 
 
 	/*---- Buttons ----*/
 
-	// psth functions
 	QGroupBox   *ECGfunGroup  = new QGroupBox( "Actions", this );
 	QVBoxLayout *ecgFunLayout = new QVBoxLayout;
 
@@ -122,35 +143,25 @@ MainWindow::~MainWindow()
 	attysScan.attysComm[0]->quit();
 }
 
-void MainWindow::initData() {
-	//  Initialize data for plots
-	for(int i=0; i<MAX_ECG_LENGTH; i++)
-	{
-		xData[i] = i/(double)sampling_rate*1000;
-		yData[i] = 0;
-	}
-}
-
 void MainWindow::slotSaveECG()
 {
 	QString fileName = QFileDialog::getSaveFileName();
 	
 	if( !fileName.isNull() )
 	{
-		// todo
+		//
 	}
 }
 
 void MainWindow::slotClearECG()
 {
-	time = 0;
-	initData();
+	sampleNumber = 0;
 }
 
 void MainWindow::slotRunECG()
 {
 	// toggle ECG recording
-	if(recordingOn == 0)
+	if(!recordingOn)
 	{
 		recordingOn = 1;
 	}
@@ -161,7 +172,9 @@ void MainWindow::slotRunECG()
 }
 
 void MainWindow::timerEvent(QTimerEvent *) {
-	RawDataPlot->replot();
+	dataPlotI->replot();
+	dataPlotII->replot();
+	dataPlotIII->replot();
 }
 
 
@@ -175,17 +188,33 @@ void MainWindow::hasData(float,float *sample)
 	y2=iirhp1->filter(y2);
 
 	// removing 50Hz notch
-	y1=iirnotch1->filter(y1);
-	y2=iirnotch1->filter(y2);
+	II=iirnotch1->filter(y1);
+	III=iirnotch1->filter(y2);
 
+	I = II - III;	
+	aVR = III / 2 - II;
+	aVL = II / 2 - III;
+	aVF = II / 2 + III / 2;
+	
 	// plot the data
-	RawDataPlot->setNewData(y1);
+	dataPlotI->setNewData(I);
+	dataPlotII->setNewData(II);
+	dataPlotIII->setNewData(III);
 
 	// Are we recording?
-	if( recordingOn )
+	if( ecgFile )
 	{
-		// average the ECG
+		char s = '\t';
+		double t = (double)sampleNumber / sampling_rate;
+		fprintf(ecgFile, "%e%c", t, s);
+                fprintf(ecgFile, "%e%c", I, s);
+                fprintf(ecgFile, "%e%c", II, s);
+                fprintf(ecgFile, "%e%c", III, s);
+                fprintf(ecgFile, "%e%c", aVR, s);
+                fprintf(ecgFile, "%e%c", aVL, s);
+                fprintf(ecgFile, "%e%c", aVF, s);
+                fprintf(ecgFile, "%f", bpm);
 	}
     
-	time++;
+	sampleNumber++;
 }

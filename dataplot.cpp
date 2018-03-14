@@ -10,55 +10,44 @@
 
 #include "dataplot.h"
 
-DataPlot::DataPlot(double *xData, double *yData, int length,
-		   double maxY, double minY, QWidget *parent) :
-    QwtPlot(parent),
-    xData(xData),
-    yData(yData),
-    max(maxY),
-    min(minY),
-    updateCtr(1)
+DataPlot::DataPlot(double _maxTime,
+		   double _samplingRate,
+		   double _minY,
+		   double _maxY,
+		   const char* title,
+		   QWidget *parent) :
+	QwtPlot(parent)
 {
-  setTitle("Raw Data");
-  setAxisTitle(QwtPlot::xBottom, "Time/ms");
-  setAxisTitle(QwtPlot::yLeft, "differential voltage / V");
-  setSizePolicy ( QSizePolicy(QSizePolicy::Minimum,
+	minY = _minY;
+	maxY = _maxY;
+	maxTime = _maxTime;
+	samplingRate = _samplingRate;
+	length = maxTime * samplingRate;
+	xData = new double[length];
+	yData = new double[length];
+	for(int i=0; i<length; i++) {
+                xData[i] = i/samplingRate;
+                yData[i] = 0;
+	}
+		
+	setAxisScale(QwtPlot::yLeft,minY,maxY);
+
+	setTitle(title);
+	setAxisTitle(QwtPlot::xBottom, "Time/ms");
+	setAxisTitle(QwtPlot::yLeft, "differential voltage / mV");
+	setSizePolicy ( QSizePolicy(QSizePolicy::Minimum,
 			      QSizePolicy::Fixed ) );
 
-  // setAxisAutoScale(QwtPlot::yLeft,true);
+	// setAxisAutoScale(QwtPlot::yLeft,true);
 
-  // Insert new curve for raw data
-  dataCurve = new QwtPlotCurve("Raw Data");
-  dataCurve->setPen( QPen(Qt::red, 2) );
-  dataCurve->setRawSamples(xData, yData, length);
-  psthLength = length;
-  dataCurve->attach(this);
-}
-
-void DataPlot::setVEPLength(int length)
-{
-  psthLength = length;
-  dataCurve->setRawSamples(xData, yData, psthLength);
-  replot();
+	// Insert new curve for raw data
+	dataCurve = new QwtPlotCurve(title);
+	dataCurve->setPen( QPen(Qt::red, 2) );
+	dataCurve->setRawSamples(xData, yData, length);
+	dataCurve->attach(this);
 }
 
 void DataPlot::setNewData(double yNew) {
-    memmove( yData, yData+1, (psthLength - 1) * sizeof(yData[0]) );
-    yData[psthLength-1] = yNew;
-    if (yNew>max) {
-	    max = yNew;
-    } else {
-	    max = max - (max-yNew)/SCALE_UPDATE_PERIOD;
-    }
-    if (yNew<min) {
-	    min = yNew;
-    } else {
-	    min = min - (min-yNew)/SCALE_UPDATE_PERIOD;
-    }
-    updateCtr--;
-    if (updateCtr==0) {
-	    double d = max - min;
-	    setAxisScale(QwtPlot::yLeft,min-d/5.0,max+d/5.0);
-	    updateCtr = SCALE_UPDATE_PERIOD;
-    }
+	memmove( yData, yData+1, (length - 1) * sizeof(yData[0]) );
+	yData[length-1] = yNew;
 }

@@ -1,5 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2003 by Matthias H. Hennig                              *
+ *                 2018 by Bernd Porr
  *   hennig@cn.stir.ac.uk                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,24 +21,41 @@
 /// this plot shows the raw input data (spikes or membrane potential)
 class DataPlot : public QwtPlot
 {
+private:
+	// internal databuffer
+	double* xData;
+	double* yData;
+	
+	// number of data points
+	int length;
+
+	// sampling Rate
+	double samplingRate;
+
+	// max time on the x axis
+	double maxTime;
+	
+	// curve object
+	QwtPlotCurve *dataCurve;
+
+	// ranges
+	double maxY,minY;
+	
+	int updateCtr;
+
 public:
 
-	DataPlot(double *xData, double *yData, int length,
-		 double max, double min, 
+	DataPlot(double _maxtime,
+		 double _samplingRate,
+		 double _minY,
+		 double _maxY,
+		 const char* title,
 		 QWidget *parent = 0);
-  void setVEPLength(int length);
-  void setNewData(double yNew);
+	
+	void setLength(int length);
+	
+	void setNewData(double yNew);
 
-private:
-  double *xData, *yData;
-
-  // number of data points
-  int psthLength;
-  // curve object
-  QwtPlotCurve *dataCurve;
-
-  double max,min;
-  int updateCtr;
 };
 
 #endif

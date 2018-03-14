@@ -26,33 +26,27 @@
 #include "dataplot.h"
 #include <Iir.h>
 
-// maximal length of the ECG (for memory alloctaion) in samples
-#define MAX_ECG_LENGTH 5000
-
-// in ms
-#define DEFAULT_SWEEP_LENGTH 500
-
 #define NOTCH_F 50 // filter out 50Hz noise
 #define IIRORDER 2
-
 
 class MainWindow : public QWidget
 {
   Q_OBJECT
     
   // show the raw serai data here
-  DataPlot *RawDataPlot;
+  DataPlot *dataPlotI;
+  DataPlot *dataPlotII;
+  DataPlot *dataPlotIII;
+
+  double I,II,III;
+  double aVR,aVL,aVF;
+  double bpm;
   
   // sampling rate
   double sampling_rate;
 
-  // data
-  double xData[MAX_ECG_LENGTH], yData[MAX_ECG_LENGTH];
-  
   // time counter
-  long int time = 0;
-
-  int ecgLength;
+  long int sampleNumber = 0;
 
   Iir::Butterworth::BandStop<IIRORDER>* iirnotch1;
   Iir::Butterworth::HighPass<IIRORDER>* iirhp1;
@@ -60,6 +54,7 @@ class MainWindow : public QWidget
   Iir::Butterworth::BandStop<IIRORDER>* iirnotch2;
   Iir::Butterworth::HighPass<IIRORDER>* iirhp2;
 
+  FILE* ecgFile = NULL;
   int recordingOn = 0;
 
   QPushButton* recordECG;

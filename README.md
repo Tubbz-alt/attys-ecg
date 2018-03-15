@@ -39,3 +39,8 @@ everything.
 
 Just type: "./attys-ecg" or start it from the start menu under Windows.
 
+
+# Credits
+
+attys-ecg is based in part on the work of the Qwt project (http://qwt.sf.net).
+

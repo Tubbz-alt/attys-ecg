@@ -4,14 +4,14 @@
 #include <algorithm>
 
 void ECG_rr_det::init(float _samplingrateInHz, int _medianFilterSize) {
-        samplingRateInHz = _samplingrateInHz;
-        medianFilterSize = _medianFilterSize;
-        hrBuffer = new float[medianFilterSize];
-        sortBuffer = new float[medianFilterSize];
-        // this fakes an R peak so we have a matched filter!
+	samplingRateInHz = _samplingrateInHz;
+	medianFilterSize = _medianFilterSize;
+	hrBuffer = new float[medianFilterSize];
+	sortBuffer = new float[medianFilterSize];
+	// this fakes an R peak so we have a matched filter!
 	ecgDetector = new Iir::Butterworth::BandPass<IIRORDER>;
-        ecgDetector->setup(2, samplingRateInHz, 20, 15);
-        reset();
+	ecgDetector->setup(2, samplingRateInHz, 20, 15);
+	reset();
 }
 
 void ECG_rr_det::reset() {

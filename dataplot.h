@@ -41,10 +41,8 @@ private:
 	// ranges
 	double maxY,minY;
 	
-	int updateCtr;
-
 public:
-
+	// constructor
 	DataPlot(double _maxtime,
 		 double _samplingRate,
 		 double _minY,
@@ -54,10 +52,17 @@ public:
 		 const char* yAxisLabel,
 		 QWidget *parent = 0);
 	
-	void setLength(int length);
-	
+	// updates the scale
+	void setYScale(double _min, double _max) {
+		minY = _min;
+		maxY = _max;
+		setAxisScale(QwtPlot::yLeft, minY, maxY);
+	}
+
+	// adds new data
 	void setNewData(double yNew);
 
+	// resets the buffer to 0
 	void reset();
 
 };

@@ -71,15 +71,15 @@ private:
 
 public:
     // constructor
-    // provide the sampling rate, the powerline frequency and the median filter size
+    // provide the sampling rate and the median filter size
     ECG_rr_det(float _samplingrateInHz, int _medianFilterSize) {
         init(_samplingrateInHz, _medianFilterSize);
     }
 
     // constructor
-    // provide the sampling rate and the powerline frequency
+    // provide the sampling rate
     ECG_rr_det(float _samplingrateInHz) {
-        init(_samplingrateInHz, 3);
+        init(_samplingrateInHz, 5);
     }
 
 private:

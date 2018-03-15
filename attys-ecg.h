@@ -24,6 +24,8 @@
 #include <qwt_counter.h>
 #include <qwt_plot_marker.h>
 
+#include <mutex>
+
 #include "dataplot.h"
 #include "ecg_rr_det.h"
 #include <Iir.h>
@@ -69,6 +71,9 @@ class MainWindow : public QWidget
   QComboBox* notchFreq;
   QLabel* statusLabel;
   QLabel* bpmLabel;
+  QComboBox* yRange;
+
+  std::mutex saveFileMutex;
 
 private slots:
 
@@ -77,6 +82,7 @@ private slots:
   void slotRecordECG();
   void slotSaveECG();
   void slotSelectNotchFreq(int);
+  void slotSelectYrange(int);
 
 protected:
 

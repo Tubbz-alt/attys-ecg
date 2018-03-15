@@ -37,6 +37,9 @@ everything.
 
 Just type: "./attys-ecg" or start it from the start menu under Windows.
 
+# Electrode placement
+
+![alt tag](electrode_placement.png)
 
 # Credits
 

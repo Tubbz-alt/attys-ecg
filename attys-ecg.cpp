@@ -46,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	attysScan.attysComm[0]->setAdc0_mux_index(AttysComm::ADC_MUX_ECG_EINTHOVEN);
 	attysScan.attysComm[0]->setAdc1_mux_index(AttysComm::ADC_MUX_ECG_EINTHOVEN);
 
+	attysScan.attysComm[0]->setAccel_full_scale_index(AttysComm::ACCEL_16G);
+	minAcc = -16 * attysScan.attysComm[0]->oneG;
+	maxAcc = -minAcc;
+
 	// 50Hz or 60Hz mains notch filter
 	iirnotch1 = new Iir::Butterworth::BandStop<IIRORDER>;
 	assert(iirnotch1 != NULL);
@@ -63,6 +67,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	iirhp2->setup(IIRORDER, sampling_rate, 0.5);
 
 	char styleSheet[] = "padding:0px;margin:0px;border:0px;";
+	char styleSheetCombo[] = "padding:0px;margin:0px;border:0px;margin-right:2px;font: 16px";
+	char styleSheetGroupBox[] = "padding:1px;margin:0px;border:0px";
+	char styleSheetButton[] = "background-color: rgb(224, 224, 224); border: none; outline: none; border-width: 0px; font: 16px; padding: 5px;";
 
 	QHBoxLayout *mainLayout = new QHBoxLayout(this);
 
@@ -76,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	mainLayout->addLayout(plotLayout);
 
 	mainLayout->setStretchFactor(controlLayout, 1);
-	mainLayout->setStretchFactor(plotLayout, 4);
+	mainLayout->setStretchFactor(plotLayout, 10);
 
 	double maxTime = 5;
 	double minRange = -2;
@@ -124,8 +131,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	plotLayout->addWidget(dataPlotIII);
 	dataPlotIII->show();
 
-	plotLayout->addSpacing(20);
-
 	dataPlotBPM = new DataPlot(120,
 		1,
 		0,
@@ -139,10 +144,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	plotLayout->addWidget(dataPlotBPM);
 	dataPlotBPM->show();
 
-
 	/*---- Buttons ----*/
 
-	QGroupBox   *ECGfunGroup = new QGroupBox("ECG", this);
+	QGroupBox   *ECGfunGroup = new QGroupBox(this);
+	ECGfunGroup->setStyleSheet(styleSheetGroupBox);
 	QVBoxLayout *ecgFunLayout = new QVBoxLayout;
 	ecgFunLayout->setAlignment(Qt::AlignTop);
 	ECGfunGroup->setLayout(ecgFunLayout);
@@ -151,12 +156,14 @@ MainWindow::MainWindow(QWidget *parent) :
 	controlLayout->addWidget(ECGfunGroup);
 
 	notchFreq = new QComboBox(ECGfunGroup);
+	notchFreq->setStyleSheet(styleSheetCombo);
 	notchFreq->addItem(tr("50Hz bandstop"));
 	notchFreq->addItem(tr("60Hz bandstop"));
 	ecgFunLayout->addWidget(notchFreq);
 	connect(notchFreq, SIGNAL(currentIndexChanged(int)), SLOT(slotSelectNotchFreq(int)));
 
 	yRange = new QComboBox(ECGfunGroup);
+	yRange->setStyleSheet(styleSheetCombo);
 	yRange->addItem(tr("1mV"),1.0);
 	yRange->addItem(tr("1.5mV"),1.5);
 	yRange->addItem(tr("2mV"),2.0);
@@ -164,7 +171,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(yRange, SIGNAL(currentIndexChanged(int)), SLOT(slotSelectYrange(int)));
 	yRange->setCurrentIndex(2);
 
-	QGroupBox   *ECGfileGroup = new QGroupBox("file ops", this);
+	QGroupBox   *ECGfileGroup = new QGroupBox(this);
+	ECGfileGroup->setStyleSheet(styleSheetGroupBox);
 	QVBoxLayout *ecgfileLayout = new QVBoxLayout;
 	ecgfileLayout->setAlignment(Qt::AlignTop);
 	ECGfileGroup->setLayout(ecgfileLayout);
@@ -173,11 +181,13 @@ MainWindow::MainWindow(QWidget *parent) :
 	controlLayout->addWidget(ECGfileGroup);
 
 	saveECG = new QPushButton(ECGfileGroup);
+	saveECG->setStyleSheet(styleSheetButton);
 	saveECG->setText("Filename");
 	ecgfileLayout->addWidget(saveECG);
 	connect(saveECG, SIGNAL(clicked()), SLOT(slotSaveECG()));
 
 	recordECG = new QPushButton(ECGfileGroup);
+	recordECG->setStyleSheet(styleSheetButton);
 	recordECG->setText("Record on/off");
 	recordECG->setCheckable(true);
 	recordECG->setEnabled(false);
@@ -187,7 +197,51 @@ MainWindow::MainWindow(QWidget *parent) :
 	statusLabel = new QLabel(ECGfileGroup);
 	ecgfileLayout->addWidget(statusLabel);
 
-	QGroupBox   *ECGbpmGroup = new QGroupBox("Heartrate", this);
+	w = yRange->width()*1.25;
+	h = mydesktop->height() / 7;
+	dataPlotAccX = new DataPlot(maxTime,
+		sampling_rate,
+		minAcc,
+		maxAcc,
+		"Acc X",
+		xlabel,
+		"m/s^2",
+		this);
+	controlLayout->addWidget(dataPlotAccX);
+	dataPlotAccX->setMaximumSize(w, h);
+	dataPlotAccX->setStyleSheet(styleSheet);
+	dataPlotAccX->show();
+
+	dataPlotAccY = new DataPlot(maxTime,
+		sampling_rate,
+		minAcc,
+		maxAcc,
+		"Acc Y",
+		xlabel,
+		"m/s^2",
+		this);
+	controlLayout->addWidget(dataPlotAccY);
+	dataPlotAccY->setMaximumSize(w, h);
+	dataPlotAccY->show();
+
+	dataPlotAccZ = new DataPlot(maxTime,
+		sampling_rate,
+		minAcc,
+		maxAcc,
+		"Acc Z",
+		xlabel,
+		"m/s^2",
+		this);
+	controlLayout->addWidget(dataPlotAccZ);
+	dataPlotAccZ->setMaximumSize(w, h);
+	dataPlotAccZ->show();
+
+
+
+	controlLayout->addStretch(0);
+
+	QGroupBox   *ECGbpmGroup = new QGroupBox(this);
+	ECGbpmGroup->setStyleSheet(styleSheetGroupBox);
 	QVBoxLayout *ecgbpmLayout = new QVBoxLayout;
 	ecgbpmLayout->setAlignment(Qt::AlignTop);
 	ECGbpmGroup->setLayout(ecgbpmLayout);
@@ -195,14 +249,16 @@ MainWindow::MainWindow(QWidget *parent) :
 	ECGbpmGroup->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	controlLayout->addWidget(ECGbpmGroup);
 
-	clearBPM = new QPushButton(ECGbpmGroup);
-	clearBPM->setText("clear BPM plot");
-	ecgbpmLayout->addWidget(clearBPM);
-	connect(clearBPM, SIGNAL(clicked()), SLOT(slotClearBPM()));
-
 	bpmLabel = new QLabel(ECGbpmGroup);
 	ecgbpmLayout->addWidget(bpmLabel);
 	bpmLabel->setFont(QFont("Courier", 18));
+	bpmLabel->setText("--- BPM");
+
+	clearBPM = new QPushButton(ECGbpmGroup);
+	clearBPM->setStyleSheet(styleSheetButton);
+	clearBPM->setText("clear BPM plot");
+	ecgbpmLayout->addWidget(clearBPM);
+	connect(clearBPM, SIGNAL(clicked()), SLOT(slotClearBPM()));
 
 	// Generate timer event every 50ms
 	startTimer(50);
@@ -315,6 +371,9 @@ void MainWindow::timerEvent(QTimerEvent *) {
 	dataPlotII->replot();
 	dataPlotIII->replot();
 	dataPlotBPM->replot();
+	dataPlotAccX->replot();
+	dataPlotAccY->replot();
+	dataPlotAccZ->replot();
 	if (recordingOn) {
 		QString tRecString = QString::number(((int)tRec));
 		statusLabel->setText("Rec: t=" + tRecString+" sec");
@@ -329,6 +388,10 @@ void MainWindow::hasData(float, float *sample)
 {
 	double y1 = sample[AttysComm::INDEX_Analogue_channel_1];
 	double y2 = sample[AttysComm::INDEX_Analogue_channel_2];
+
+	accX = sample[AttysComm::INDEX_Acceleration_X];
+	accY = sample[AttysComm::INDEX_Acceleration_Y];
+	accZ = sample[AttysComm::INDEX_Acceleration_Z];
 
 	// highpass filtering of the data
 	y1 = iirhp1->filter(y1);
@@ -351,6 +414,10 @@ void MainWindow::hasData(float, float *sample)
 	dataPlotII->setNewData(II*scaling);
 	dataPlotIII->setNewData(III*scaling);
 
+	dataPlotAccX->setNewData(accX);
+	dataPlotAccY->setNewData(accY);
+	dataPlotAccZ->setNewData(accZ);
+
 	// Are we recording?
 	saveFileMutex.lock();
 	if (ecgFile)
@@ -364,8 +431,11 @@ void MainWindow::hasData(float, float *sample)
 		fprintf(ecgFile, "%e%c", aVR, s);
 		fprintf(ecgFile, "%e%c", aVL, s);
 		fprintf(ecgFile, "%e%c", aVF, s);
-		fprintf(ecgFile, "%f\n", bpm);
+		fprintf(ecgFile, "%f%c", bpm, s);
 		bpm = 0;
+		fprintf(ecgFile, "%e%c", accX, s);
+		fprintf(ecgFile, "%e%c", accY, s);
+		fprintf(ecgFile, "%e\n", accZ, s);
 	}
 	saveFileMutex.unlock();
     

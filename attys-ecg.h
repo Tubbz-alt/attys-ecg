@@ -42,9 +42,18 @@ class MainWindow : public QWidget
   DataPlot *dataPlotIII;
   DataPlot *dataPlotBPM;
 
+  DataPlot *dataPlotAccX;
+  DataPlot *dataPlotAccY;
+  DataPlot *dataPlotAccZ;
+
+  double minAcc;
+  double maxAcc;
+
   double I,II,III;
   double aVR,aVL,aVF;
   double bpm;
+
+  double accX, accY, accZ;
   
   // sampling rate
   double sampling_rate;

@@ -40,6 +40,8 @@ private:
 
 	// ranges
 	double maxY,minY;
+
+	int w = -1, h = -1;
 	
 public:
 	// constructor
@@ -64,6 +66,13 @@ public:
 
 	// resets the buffer to 0
 	void reset();
+
+	QSize sizeHint() const {
+		return QSize(w, h);
+	}
+
+	void setWidth(int _w) { w = _w; };
+	void setHeight(int _h) { h = _h; };
 
 };
 

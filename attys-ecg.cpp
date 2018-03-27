@@ -198,7 +198,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ecgfileLayout->addWidget(statusLabel);
 
 	w = yRange->width()*1.25;
-	h = mydesktop->height() / 7;
+	h = mydesktop->height() / 6;
 	dataPlotAccX = new DataPlot(maxTime,
 		sampling_rate,
 		minAcc,
@@ -435,7 +435,7 @@ void MainWindow::hasData(float, float *sample)
 		bpm = 0;
 		fprintf(ecgFile, "%e%c", accX, s);
 		fprintf(ecgFile, "%e%c", accY, s);
-		fprintf(ecgFile, "%e\n", accZ, s);
+		fprintf(ecgFile, "%e\n", accZ);
 	}
 	saveFileMutex.unlock();
     

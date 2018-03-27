@@ -137,7 +137,7 @@ MainWindow::MainWindow(QWidget *parent) :
 		200,
 		"Heartrate",
 		"RR number",
-		"Heartrate/bpm",
+		"RR/bpm",
 		this);
 	dataPlotBPM->setMaximumSize(w, h);
 	dataPlotBPM->setStyleSheet(styleSheet);

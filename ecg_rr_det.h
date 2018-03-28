@@ -79,7 +79,7 @@ public:
     // constructor
     // provide the sampling rate
     ECG_rr_det(float _samplingrateInHz) {
-        init(_samplingrateInHz, 9);
+        init(_samplingrateInHz, 19);
     }
 
 private:

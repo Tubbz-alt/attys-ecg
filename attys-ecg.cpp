@@ -193,19 +193,22 @@ MainWindow::MainWindow(QWidget *parent) :
 	recordECG->setEnabled(false);
 	ecgfileLayout->addWidget(recordECG);
 	connect(recordECG, SIGNAL(clicked()), SLOT(slotRecordECG()));
-
 	statusLabel = new QLabel(ECGfileGroup);
 	ecgfileLayout->addWidget(statusLabel);
 
+	
+	controlLayout->addWidget(new QLabel("Acceleration"));
+	controlLayout->addWidget(new QLabel("m/s^2"));
+
 	w = yRange->width()*1.25;
-	h = mydesktop->height() / 6;
+	h = mydesktop->height() / 7;
 	dataPlotAccX = new DataPlot(maxTime,
 		sampling_rate,
 		minAcc,
 		maxAcc,
-		"Acc X",
+		"",
 		xlabel,
-		"m/s^2",
+		"X",
 		this);
 	controlLayout->addWidget(dataPlotAccX);
 	dataPlotAccX->setMaximumSize(w, h);
@@ -216,9 +219,9 @@ MainWindow::MainWindow(QWidget *parent) :
 		sampling_rate,
 		minAcc,
 		maxAcc,
-		"Acc Y",
+		"",
 		xlabel,
-		"m/s^2",
+		"Y",
 		this);
 	controlLayout->addWidget(dataPlotAccY);
 	dataPlotAccY->setMaximumSize(w, h);
@@ -228,9 +231,9 @@ MainWindow::MainWindow(QWidget *parent) :
 		sampling_rate,
 		minAcc,
 		maxAcc,
-		"Acc Z",
+		"",
 		xlabel,
-		"m/s^2",
+		"Z",
 		this);
 	controlLayout->addWidget(dataPlotAccZ);
 	dataPlotAccZ->setMaximumSize(w, h);

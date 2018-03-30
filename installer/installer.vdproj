@@ -33,6 +33,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_19AFD4D7EB75436C98FDB6DA136EBFE7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_272D4886146C457C9F2E42900B13D087"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -88,6 +94,12 @@
         "Entry"
         {
         "MsmKey" = "8:_59C4967C839F4ACD8D14505F4E48305B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_60449F07E76743F2BC2D095DA8BF9592"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -250,6 +262,12 @@
         "Entry"
         {
         "MsmKey" = "8:_E1EF0D8426DB4D07BD00032C827B3B95"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E31FE973B443484D95C369DD86913217"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -420,6 +438,26 @@
             {
             "SourcePath" = "8:..\\debug\\Qt5Widgetsd.dll"
             "TargetName" = "8:Qt5Widgetsd.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_19AFD4D7EB75436C98FDB6DA136EBFE7"
+            {
+            "SourcePath" = "8:C:\\Qt\\Qt5.7.0\\5.7\\msvc2015_64\\bin\\Qt5Bluetoothd.dll"
+            "TargetName" = "8:Qt5Bluetoothd.dll"
             "Tag" = "8:"
             "Folder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
             "Condition" = "8:"
@@ -622,6 +660,26 @@
             "TargetName" = "8:qt_sk.qm"
             "Tag" = "8:"
             "Folder" = "8:_AF6C83AC056745F9A7E38777190CA428"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_60449F07E76743F2BC2D095DA8BF9592"
+            {
+            "SourcePath" = "8:C:\\Qt\\Qt5.7.0\\5.7\\msvc2015_64\\bin\\Qt5OpenGLd.dll"
+            "TargetName" = "8:Qt5OpenGLd.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1122,6 +1180,26 @@
             "TargetName" = "8:qt_en.qm"
             "Tag" = "8:"
             "Folder" = "8:_AF6C83AC056745F9A7E38777190CA428"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E31FE973B443484D95C369DD86913217"
+            {
+            "SourcePath" = "8:C:\\Qt\\Qt5.7.0\\5.7\\msvc2015_64\\bin\\Qt5PrintSupportd.dll"
+            "TargetName" = "8:Qt5PrintSupportd.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

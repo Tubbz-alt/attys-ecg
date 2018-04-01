@@ -98,7 +98,7 @@ protected:
   /// timer to plot the data
   virtual void timerEvent(QTimerEvent *e);
 
-  struct AttysCallback : AttysComm::CallbackInterface {
+  struct AttysCallback : AttysCommListener {
 	  MainWindow* mainwindow;
 	  AttysCallback(MainWindow* _mainwindow) { mainwindow = _mainwindow; };
 	  virtual void hasSample(float ts,float *data) {

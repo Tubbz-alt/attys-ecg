@@ -13,6 +13,7 @@
 #include "AttysScan.h"
 
 #include <QApplication>
+#include <QSplashScreen>
 
 int main(int argc, char **argv)
 {
@@ -26,7 +27,7 @@ int main(int argc, char **argv)
   app.processEvents();
 
   // see if we have any Attys!
-  int ret = attysScan.scan(NULL,1);
+  int ret = attysScan.scan(1);
   
   // zero on success and non zero on failure
   if (ret) {

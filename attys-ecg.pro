@@ -7,9 +7,9 @@ LIBS += \
     -L/usr/local/lib \
     -lqwt-qt5 \
     -liir \
+    -lattyscomm \
     -lbluetooth
 
-INCLUDEPATH += ../AttysComm/c/
 INCLUDEPATH += /usr/include/qwt
 
 TMAKE_CXXFLAGS += -fno-exceptions
@@ -18,18 +18,12 @@ SOURCES = \
     dataplot.cpp \
     main.cpp \
     attys-ecg.cpp \
-    ecg_rr_det.cpp \
-    ../AttysComm/c/AttysComm.cpp \
-    ../AttysComm/c/AttysScan.cpp \
-    ../AttysComm/c/base64.c
+    ecg_rr_det.cpp
 
 HEADERS = \
     attys-ecg.h \
     dataplot.h \
-    ecg_rr_det.h \
-    ../AttysComm/c/AttysComm.h \
-    ../AttysComm/c/AttysScan.h \
-    ../AttysComm/c/base64.h
+    ecg_rr_det.h
 
 CONFIG		+= qt release c++11
 

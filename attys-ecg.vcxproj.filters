@@ -37,16 +37,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\AttysComm\c\AttysComm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\AttysComm\c\AttysScan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="attys-ecg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\AttysComm\c\base64.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dataplot.cpp">
@@ -60,18 +51,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\AttysComm\c\AttysComm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\AttysComm\c\AttysScan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <CustomBuild Include="attys-ecg.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\AttysComm\c\base64.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="dataplot.h">
       <Filter>Header Files</Filter>
     </ClInclude>

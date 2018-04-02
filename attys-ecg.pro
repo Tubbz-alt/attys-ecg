@@ -49,28 +49,25 @@ LIBS += \
     -lqwtd \
 	-L/iir1/Debug \
     -liir_static \
-	-lws2_32
+	-lws2_32 \
+	-L../AttysComm/cpp/Debug \
+	-lattyscomm_static
+
 
 INCLUDEPATH += /iir1
-INCLUDEPATH += ../AttysComm/c/
+INCLUDEPATH += ../AttysComm/cpp/
 INCLUDEPATH += /qwt/src
 
 SOURCES = \
     dataplot.cpp \
     main.cpp \
     attys-ecg.cpp \
-    ecg_rr_det.cpp \
-    ../AttysComm/c/AttysComm.cpp \
-    ../AttysComm/c/AttysScan.cpp \
-    ../AttysComm/c/base64.c
+    ecg_rr_det.cpp
 
 HEADERS = \
     attys-ecg.h \
     dataplot.h \
-    ecg_rr_det.h \
-    ../AttysComm/c/AttysComm.h \
-    ../AttysComm/c/AttysScan.h \
-    ../AttysComm/c/base64.h
+    ecg_rr_det.h
 
 CONFIG		+= qt debug c++11
 

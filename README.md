@@ -42,13 +42,16 @@ Just type: "./attys-ecg" or start it from the start menu under Windows.
 ![alt tag](electrode_placement.png)
 
 # Heartrate detection
+[https://github.com/glasgowneuro/attys-ecg/blob/master/ecg_rr_det.cpp]
 
-The heartrate detector measures the times between consecutive heartbeats and calculates the momentary
+The heartrate detector
+measures the times between consecutive heartbeats and calculates the momentary
 heartrate in beats per minute out of it:
 
 ![alt tag](heartrate_detection.png)
 
 It uses a median filter and other heuristics to weed out wrong detections.
+
 
 # Credits
 

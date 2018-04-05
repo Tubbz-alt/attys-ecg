@@ -41,6 +41,15 @@ Just type: "./attys-ecg" or start it from the start menu under Windows.
 
 ![alt tag](electrode_placement.png)
 
+# Heartrate detection
+
+The heartrate detector measures the times between consecutive heartbeats and calculates the momentary
+heartrate in beats per minute out of it:
+
+![alt tag](heartrate_detection.png)
+
+It uses a median filter and other heuristics to weed out wrong detections.
+
 # Credits
 
 attys-ecg is based in part on the work of the Qwt project (http://qwt.sf.net).

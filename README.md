@@ -13,7 +13,8 @@ You need the following libraries to compile and run the program:
 
 - AttysComm (https://github.com/glasgowneuro/AttysComm)
 - Qt5 / Qwt (standard UBUNTU packages)
-- IIR filter library (http://www.berndporr.me.uk/iir/)
+- IIR filter library from https://github.com/berndporr/iir1
+- FIR filter library from https://github.com/berndporr/fir1
 
 Run "qmake", which generates a Makefile and "make" to compile
 everything.
@@ -21,6 +22,7 @@ everything.
 ## Windows
 * Install: Visual Studio 2017 community edition
 * clone iir1 in your root directory: https://github.com/berndporr/iir1 and compile it (release and debug version)
+* clone fir1 in your root directory: https://github.com/berndporr/fir1 and compile it (release and debug version)
 * Download the open source version of QT5, 64 bits for visual C++ 2015/2017 from www.qt.io:
   https://download.qt.io/official_releases/qt/5.7/5.7.0/qt-opensource-windows-x86-msvc2015_64-5.7.0.exe
 * Download Qwt from http://qwt.sf.net (the latest version 6.x), unpack it in the parent directory and compile it (as release & debug)

@@ -33,8 +33,11 @@
 
 #define IIRORDER 2
 
-#define LMS_COEFF 500
-#define LEARNING_RATE 5E-10
+// optimal settings for fast settling time and stability
+#define HP_CUTOFF 0.25
+#define LEARNING_RATE 5E-4
+
+#define LMS_COEFF ((int)(250/HP_CUTOFF))
 
 class MainWindow : public QWidget
 {
@@ -70,6 +73,8 @@ class MainWindow : public QWidget
 
   Iir::Butterworth::BandStop<IIRORDER>* iirnotch2;
   Iir::Butterworth::HighPass<IIRORDER>* iirhp2;
+
+  Iir::Butterworth::HighPass<IIRORDER>** iirAcc;
 
   ECG_rr_det* rr_det1;
   ECG_rr_det* rr_det2;
@@ -134,6 +139,7 @@ protected:
 		  mainwindow->hasRpeak(det,samplenumber,filtBpm,unFiltBpm,amplitude,confidence);
 	  };
   };
+
   void hasRpeak(ECG_rr_det* det,
 		long samplenumber,
 		float filtBpm,
@@ -142,8 +148,7 @@ protected:
 		double confidence);
   BPMCallback* bPMCallback1;
   BPMCallback* bPMCallback2;
-
-
+  
   void setNotch(double f);
 
 signals:

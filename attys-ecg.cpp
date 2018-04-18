@@ -62,13 +62,18 @@ MainWindow::MainWindow(QWidget *parent) :
 	setNotch(50);
 
 	// highpass
-	iirhp1 = new Iir::Butterworth::HighPass<2>;
-	assert(iirhp1 != NULL);
-	iirhp1->setup(IIRORDER, sampling_rate, 0.5);
-	iirhp2 = new Iir::Butterworth::HighPass<2>;
-	assert(iirhp2 != NULL);
-	iirhp2->setup(IIRORDER, sampling_rate, 0.5);
+	iirhp1 = new Iir::Butterworth::HighPass<IIRORDER>;
+	iirhp1->setup(IIRORDER, sampling_rate, HP_CUTOFF);
+	iirhp2 = new Iir::Butterworth::HighPass<IIRORDER>;
+	iirhp2->setup(IIRORDER, sampling_rate, HP_CUTOFF);
 
+	// highpass filters for the adaptive filter
+	iirAcc = new Iir::Butterworth::HighPass<IIRORDER>*[3];
+	for(int i=0;i<3;i++) {
+		iirAcc[i] = new Iir::Butterworth::HighPass<IIRORDER>;
+		iirAcc[i]->setup(IIRORDER, sampling_rate, HP_CUTOFF);
+	}
+		
 	// lms
 	lms1 = new Fir1*[3];
 	lms2 = new Fir1*[3];
@@ -416,14 +421,24 @@ void MainWindow::hasData(float, float *sample)
 	y1 = iirnotch1->filter(y1);
 	y2 = iirnotch2->filter(y2);
 
+	// highpass filtering of the data
+	y1 = iirhp1->filter(y1);
+	y2 = iirhp2->filter(y2);
+
+	// do we do adaptive filtering
 	if (lmsCheckBox->isChecked()) {
 		// adaptive filtering
 		double corr1 = 0;
 		double corr2 = 0;
 		for(int i=0;i<3;i++) {
-			corr1 += lms1[i]->filter(sample[AttysComm::INDEX_Acceleration_X+i]);
-			corr2 += lms2[i]->filter(sample[AttysComm::INDEX_Acceleration_X+i]);
+			double acc = sample[AttysComm::INDEX_Acceleration_X+i];
+			acc = acc / attysScan.attysComm[0]->getAccelFullScaleRange();
+			acc = iirAcc[i]->filter(acc);
+			corr1 += lms1[i]->filter(acc);
+			corr2 += lms2[i]->filter(acc);
 		}
+
+		//printf("%e %e %e %e\n",y1,y2,corr1,corr2);
 
 		II = y1 - corr1;
 		III = y2 - corr2;
@@ -432,13 +447,10 @@ void MainWindow::hasData(float, float *sample)
 			lms1[i]->lms_update(II);
 			lms2[i]->lms_update(III);
 		}
-		// dummy filtering of the data
-		iirhp1->filter(y1);
-		iirhp2->filter(y2);
 	} else {
-		// highpass filtering of the data
-		II = iirhp1->filter(y1);
-		III = iirhp2->filter(y2);
+		// passthrough
+		II = y1;
+		III = y2;
 	}		
 
 	I = II - III;

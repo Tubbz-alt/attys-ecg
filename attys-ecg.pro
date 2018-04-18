@@ -48,11 +48,13 @@ OBJECTS_DIR = obj
 LIBS += \
     -L/qwt/lib \
     -lqwtd \
-	-L/iir1/Debug \
+    -L/iir1/Debug \
     -liir_static \
-	-lws2_32 \
-	-L../AttysComm/cpp/Debug \
-	-lattyscomm_static
+    -L/fir1/Debug \
+    -lfir1_statis \
+    -lws2_32 \
+    -L../AttysComm/cpp/Debug \
+    -lattyscomm_static
 
 
 INCLUDEPATH += /iir1

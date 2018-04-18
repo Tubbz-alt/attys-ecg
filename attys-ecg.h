@@ -29,8 +29,12 @@
 #include "dataplot.h"
 #include "ecg_rr_det.h"
 #include <Iir.h>
+#include <Fir1.h>
 
 #define IIRORDER 2
+
+#define LMS_COEFF 500
+#define LEARNING_RATE 5E-10
 
 class MainWindow : public QWidget
 {
@@ -67,7 +71,13 @@ class MainWindow : public QWidget
   Iir::Butterworth::BandStop<IIRORDER>* iirnotch2;
   Iir::Butterworth::HighPass<IIRORDER>* iirhp2;
 
-  ECG_rr_det* rr_det;
+  ECG_rr_det* rr_det1;
+  ECG_rr_det* rr_det2;
+
+  int rr_det_channel = 0;
+
+  Fir1 **lms1;
+  Fir1 **lms2;
 
   FILE* ecgFile = NULL;
   int recordingOn = 0;
@@ -81,6 +91,7 @@ class MainWindow : public QWidget
   QLabel* statusLabel;
   QLabel* bpmLabel;
   QComboBox* yRange;
+  QCheckBox* lmsCheckBox;
 
   std::mutex saveFileMutex;
 
@@ -110,21 +121,27 @@ protected:
 
   struct BPMCallback : ECG_rr_det::RRlistener {
 	  MainWindow* mainwindow;
-	  BPMCallback(MainWindow* _mainwindow) { mainwindow = _mainwindow; };
+	  ECG_rr_det* det;
+	  BPMCallback(MainWindow* _mainwindow, ECG_rr_det* _det) {
+		  mainwindow = _mainwindow;
+		  det = _det;
+	  };
 	  void hasRpeak(long samplenumber,
 			float filtBpm,
 			float unFiltBpm,
 			double amplitude,
 			double confidence) {
-		  mainwindow->hasRpeak(samplenumber,filtBpm,unFiltBpm,amplitude,confidence);
+		  mainwindow->hasRpeak(det,samplenumber,filtBpm,unFiltBpm,amplitude,confidence);
 	  };
   };
-  void hasRpeak(long samplenumber,
+  void hasRpeak(ECG_rr_det* det,
+		long samplenumber,
 		float filtBpm,
 		float unFiltBpm,
 		double amplitude,
 		double confidence);
-  BPMCallback* bPMCallback;
+  BPMCallback* bPMCallback1;
+  BPMCallback* bPMCallback2;
 
 
   void setNotch(double f);

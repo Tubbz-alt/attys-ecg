@@ -8,7 +8,8 @@ LIBS += \
     -lqwt-qt5 \
     -liir \
     -lattyscomm \
-    -lbluetooth
+    -lbluetooth \
+    -lfir
 
 INCLUDEPATH += /usr/include/qwt
 

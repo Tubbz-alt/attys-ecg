@@ -32,9 +32,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	attysScan.attysComm[0]->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);
 	sampling_rate = attysScan.attysComm[0]->getSamplingRateInHz();
 
-	rr_det = new ECG_rr_det(sampling_rate);
-	bPMCallback = new BPMCallback(this);
-	rr_det->setRrListener(bPMCallback);
+	rr_det1 = new ECG_rr_det(sampling_rate);
+	rr_det2 = new ECG_rr_det(sampling_rate);
+	bPMCallback1 = new BPMCallback(this,rr_det1);
+	bPMCallback2 = new BPMCallback(this,rr_det2);
+	rr_det1->setRrListener(bPMCallback1);
+	rr_det2->setRrListener(bPMCallback2);
 
 	attysCallback = new AttysCallback(this);
 	attysScan.attysComm[0]->registerCallback(attysCallback);
@@ -65,6 +68,16 @@ MainWindow::MainWindow(QWidget *parent) :
 	iirhp2 = new Iir::Butterworth::HighPass<2>;
 	assert(iirhp2 != NULL);
 	iirhp2->setup(IIRORDER, sampling_rate, 0.5);
+
+	// lms
+	lms1 = new Fir1*[3];
+	lms2 = new Fir1*[3];
+	for(int i=0;i<3;i++) {
+		lms1[i] = new Fir1(LMS_COEFF);
+		lms1[i]->setLearningRate(LEARNING_RATE);
+		lms2[i] = new Fir1(LMS_COEFF);
+		lms2[i]->setLearningRate(LEARNING_RATE);
+	}
 
 	char styleSheet[] = "padding:0px;margin:0px;border:0px;";
 	char styleSheetCombo[] = "padding:0px;margin:0px;border:0px;margin-right:2px;font: 16px";
@@ -171,6 +184,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(yRange, SIGNAL(currentIndexChanged(int)), SLOT(slotSelectYrange(int)));
 	yRange->setCurrentIndex(2);
 
+	lmsCheckBox = new QCheckBox( "artefact removal" );
+	ecgFunLayout->addWidget(lmsCheckBox);
+
 	QGroupBox   *ECGfileGroup = new QGroupBox(this);
 	ECGfileGroup->setStyleSheet(styleSheetGroupBox);
 	QVBoxLayout *ecgfileLayout = new QVBoxLayout;
@@ -254,7 +270,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	bpmLabel = new QLabel(ECGbpmGroup);
 	ecgbpmLayout->addWidget(bpmLabel);
-	bpmLabel->setFont(QFont("Courier", 18));
+	bpmLabel->setFont(QFont("Courier", 16));
 	bpmLabel->setText("--- BPM");
 
 	clearBPM = new QPushButton(ECGbpmGroup);
@@ -396,17 +412,40 @@ void MainWindow::hasData(float, float *sample)
 	accY = sample[AttysComm::INDEX_Acceleration_Y];
 	accZ = sample[AttysComm::INDEX_Acceleration_Z];
 
-	// highpass filtering of the data
-	y1 = iirhp1->filter(y1);
-	y2 = iirhp2->filter(y2);
-
 	// removing 50Hz notch
-	II = iirnotch1->filter(y1);
-	III = iirnotch2->filter(y2);
+	y1 = iirnotch1->filter(y1);
+	y2 = iirnotch2->filter(y2);
 
-	rr_det->detect(II);
+	if (lmsCheckBox->isChecked()) {
+		// adaptive filtering
+		double corr1 = 0;
+		double corr2 = 0;
+		for(int i=0;i<3;i++) {
+			corr1 += lms1[i]->filter(sample[AttysComm::INDEX_Acceleration_X+i]);
+			corr2 += lms2[i]->filter(sample[AttysComm::INDEX_Acceleration_X+i]);
+		}
+
+		II = y1 - corr1;
+		III = y2 - corr2;
+
+		for(int i=0;i<3;i++) {
+			lms1[i]->lms_update(II);
+			lms2[i]->lms_update(III);
+		}
+		// dummy filtering of the data
+		iirhp1->filter(y1);
+		iirhp2->filter(y2);
+	} else {
+		// highpass filtering of the data
+		II = iirhp1->filter(y1);
+		III = iirhp2->filter(y2);
+	}		
 
 	I = II - III;
+
+	rr_det1->detect(I);
+	rr_det2->detect(II);
+	
 	aVR = III / 2 - II;
 	aVL = II / 2 - III;
 	aVF = II / 2 + III / 2;
@@ -446,15 +485,29 @@ void MainWindow::hasData(float, float *sample)
 	tRec = tRec + 1.0 / sampling_rate;
 }
 
-void  MainWindow::hasRpeak(long,
+void  MainWindow::hasRpeak(ECG_rr_det* det,
+			   long,
 			   float filtBpm,
 			   float,
 			   double,
 			   double) {
 	//fprintf(stderr,"BPM = %f\n",filtBpm);
+	if (rr_det1-> getAmplitude() > rr_det2->getAmplitude()) {
+		// channel one stronger
+		rr_det_channel = 1;
+		if (det == rr_det1) {
+			bpm = filtBpm;
+		}
+	} else {
+		// channel two stronger
+		rr_det_channel = 2;
+		if (det == rr_det2) {
+			bpm = filtBpm;
+		}
+	}
 	bpm = filtBpm;
 	dataPlotBPM->setNewData(bpm);
 	char tmp[16];
-	sprintf(tmp,"%03d BPM",(int)bpm);
+	sprintf(tmp,"%03d/%d BPM",(int)bpm,rr_det_channel);
 	bpmLabel->setText(tmp);
 }

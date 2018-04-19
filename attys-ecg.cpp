@@ -438,7 +438,7 @@ void MainWindow::hasData(float, float *sample)
 			corr2 += lms2[i]->filter(acc);
 		}
 
-		//printf("%e %e %e %e\n",y1,y2,corr1,corr2);
+		printf("%e %e %e %e\n",y1,y2,corr1,corr2);
 
 		II = y1 - corr1;
 		III = y2 - corr2;

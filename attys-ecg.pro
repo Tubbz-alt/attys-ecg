@@ -51,13 +51,14 @@ LIBS += \
     -L/iir1/Debug \
     -liir_static \
     -L/fir1/Debug \
-    -lfir1_statis \
+    -lfir_static \
     -lws2_32 \
     -L../AttysComm/cpp/Debug \
     -lattyscomm_static
 
 
 INCLUDEPATH += /iir1
+INCLUDEPATH += /fir1
 INCLUDEPATH += ../AttysComm/cpp/
 INCLUDEPATH += /qwt/src
 

@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;\iir1;..\AttysComm\cpp;\qwt\src;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtWidgets;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtGui;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtANGLE;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtCore;moc;C:\Qt\Qt5.7.0\5.7\msvc2015_64\mkspecs\win32-msvc2015;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;\iir1;\fir1;..\AttysComm\cpp;\qwt\src;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtWidgets;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtGui;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtANGLE;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtCore;moc;C:\Qt\Qt5.7.0\5.7\msvc2015_64\mkspecs\win32-msvc2015;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-FS -Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>obj\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -70,8 +70,8 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\qtmaind.lib;shell32.lib;\qwt\lib\qwtd.lib;\iir1\Debug\iir_static.lib;ws2_32.lib;..\AttysComm\cpp\Debug\attyscomm_static.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Widgetsd.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Guid.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib;C:\utils\postgresql\pgsql\lib;C:\utils\my_sql\my_sql\lib;\qwt\lib;\iir1\Debug;..\AttysComm\cpp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\qtmaind.lib;shell32.lib;\qwt\lib\qwtd.lib;\iir1\Debug\iir_static.lib;\fir1\Debug\fir_static.lib;ws2_32.lib;..\AttysComm\cpp\Debug\attyscomm_static.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Widgetsd.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Guid.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib;C:\utils\postgresql\pgsql\lib;C:\utils\my_sql\my_sql\lib;\qwt\lib;\iir1\Debug;\fir1\Debug;..\AttysComm\cpp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -92,7 +92,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;\iir1;..\AttysComm\cpp;\qwt\src;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtWidgets;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtGui;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtANGLE;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtCore;moc;C:\Qt\Qt5.7.0\5.7\msvc2015_64\mkspecs\win32-msvc2015;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;\iir1;\fir1;..\AttysComm\cpp;\qwt\src;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtWidgets;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtGui;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtANGLE;C:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtCore;moc;C:\Qt\Qt5.7.0\5.7\msvc2015_64\mkspecs\win32-msvc2015;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-FS -Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>obj\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -109,8 +109,8 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\qtmain.lib;shell32.lib;\qwt\lib\qwtd.lib;\iir1\Debug\iir_static.lib;ws2_32.lib;..\AttysComm\cpp\Debug\attyscomm_static.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Widgets.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Gui.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib;C:\utils\postgresql\pgsql\lib;C:\utils\my_sql\my_sql\lib;\qwt\lib;\iir1\Debug;..\AttysComm\cpp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\qtmain.lib;shell32.lib;\qwt\lib\qwtd.lib;\iir1\Debug\iir_static.lib;\fir1\Debug\fir_static.lib;ws2_32.lib;..\AttysComm\cpp\Debug\attyscomm_static.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Widgets.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Gui.lib;C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Qt\Qt5.7.0\5.7\msvc2015_64\lib;C:\utils\postgresql\pgsql\lib;C:\utils\my_sql\my_sql\lib;\qwt\lib;\iir1\Debug;\fir1\Debug;..\AttysComm\cpp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -139,11 +139,11 @@
   <ItemGroup>
     <CustomBuild Include="attys-ecg.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">attys-ecg.h;C:\Qt\Qt5.7.0\5.7\msvc2015_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.7.0\5.7\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/mkspecs/win32-msvc2015 -ID:/glasgow_neuro/attys/software/attys-ecg -I/iir1 -ID:/glasgow_neuro/attys/software/AttysComm/cpp -I/qwt/src -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtWidgets -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtGui -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtANGLE -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtCore attys-ecg.h -o moc\moc_attys-ecg.cpp</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.7.0\5.7\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/mkspecs/win32-msvc2015 -ID:/glasgow_neuro/attys/software/attys-ecg -I/iir1 -I/fir1 -ID:/glasgow_neuro/attys/software/AttysComm/cpp -I/qwt/src -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtWidgets -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtGui -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtANGLE -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtCore attys-ecg.h -o moc\moc_attys-ecg.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC attys-ecg.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc\moc_attys-ecg.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">attys-ecg.h;C:\Qt\Qt5.7.0\5.7\msvc2015_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.7.0\5.7\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/mkspecs/win32-msvc2015 -ID:/glasgow_neuro/attys/software/attys-ecg -I/iir1 -ID:/glasgow_neuro/attys/software/AttysComm/cpp -I/qwt/src -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtWidgets -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtGui -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtANGLE -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtCore attys-ecg.h -o moc\moc_attys-ecg.cpp</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.7.0\5.7\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/mkspecs/win32-msvc2015 -ID:/glasgow_neuro/attys/software/attys-ecg -I/iir1 -I/fir1 -ID:/glasgow_neuro/attys/software/AttysComm/cpp -I/qwt/src -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtWidgets -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtGui -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtANGLE -IC:/Qt/Qt5.7.0/5.7/msvc2015_64/include/QtCore attys-ecg.h -o moc\moc_attys-ecg.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC attys-ecg.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">moc\moc_attys-ecg.cpp;%(Outputs)</Outputs>
     </CustomBuild>

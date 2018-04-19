@@ -35,9 +35,10 @@
 
 // optimal settings for fast settling time and stability
 #define HP_CUTOFF 0.25
-#define LEARNING_RATE 0.2
+#define LEARNING_RATE 0.1
 
-#define LMS_COEFF ((int)(250/HP_CUTOFF))
+// one sec memory
+#define LMS_COEFF ((int)(250/HP_CUTOFF/8))
 
 class MainWindow : public QWidget
 {

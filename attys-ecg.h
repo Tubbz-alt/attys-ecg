@@ -35,7 +35,7 @@
 
 // optimal settings for fast settling time and stability
 #define HP_CUTOFF 0.25
-#define LEARNING_RATE 0.25
+#define LEARNING_RATE 0.2
 
 #define LMS_COEFF ((int)(250/HP_CUTOFF))
 

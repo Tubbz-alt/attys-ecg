@@ -10,8 +10,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef ATTYS_EP
-#define ATTYS_EP
+#ifndef ATTYS_ECG
+#define ATTYS_ECG
 
 #include <QWidget>
 #include <QPushButton>
@@ -33,12 +33,11 @@
 
 #define IIRORDER 2
 
-// optimal settings for fast settling time and stability
+// LMS coefficients
 #define HP_CUTOFF 0.25
-#define LEARNING_RATE 0.2
-
-// one sec memory
-#define LMS_COEFF ((int)(250/HP_CUTOFF/8))
+#define LEARNING_RATE 0.00001
+#define LMS_COEFF ((int)(250/HP_CUTOFF))
+#define FAULT_THRES 10
 
 class MainWindow : public QWidget
 {

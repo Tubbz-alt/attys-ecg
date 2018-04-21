@@ -432,8 +432,8 @@ void MainWindow::hasData(float, float *sample)
 		double corr2 = 0;
 		for(int i=0;i<3;i++) {
 			double acc = sample[AttysComm::INDEX_Acceleration_X+i];
-			acc = acc / attysScan.attysComm[0]->getAccelFullScaleRange();
 			acc = iirAcc[i]->filter(acc);
+			// fprintf(stderr,"%f\n",acc);
 			corr1 += lms1[i]->filter(acc);
 			corr2 += lms2[i]->filter(acc);
 		}
@@ -444,8 +444,18 @@ void MainWindow::hasData(float, float *sample)
 		III = y2 - corr2;
 
 		for(int i=0;i<3;i++) {
-			lms1[i]->lms_update(II);
-			lms2[i]->lms_update(III);
+			if (fabs(II)>FAULT_THRES) {
+				lms1[i]->reset();
+				lms1[i]->zeroCoeff();
+			} else {
+				lms1[i]->lms_update(II);
+			}
+			if (fabs(III)>FAULT_THRES) {
+				lms2[i]->reset();
+				lms2[i]->zeroCoeff();
+			} else {
+				lms2[i]->lms_update(III);
+			}
 		}
 	} else {
 		// passthrough

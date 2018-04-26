@@ -45,7 +45,7 @@ MOC_DIR = moc
 
 OBJECTS_DIR = obj
 
-LIBS += \
+Debug:LIBS += \
     -L/qwt/lib \
     -lqwtd \
     -L/iir1/Debug \
@@ -54,6 +54,18 @@ LIBS += \
     -lfir_static \
     -lws2_32 \
     -L../AttysComm/cpp/Debug \
+    -lattyscomm_static
+
+
+Release:LIBS += \
+    -L/qwt/lib \
+    -lqwt \
+    -L/iir1/Release \
+    -liir_static \
+    -L/fir1/Release \
+    -lfir_static \
+    -lws2_32 \
+    -L../AttysComm/cpp/Release \
     -lattyscomm_static
 
 
@@ -73,7 +85,8 @@ HEADERS = \
     dataplot.h \
     ecg_rr_det.h
 
-CONFIG		+= qt debug c++11
+Debug:CONFIG		+= qt debug c++11
+Release:CONFIG		+= qt c++11
 
 QT   	+= widgets
 

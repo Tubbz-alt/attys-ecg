@@ -1429,6 +1429,17 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_ED98A4B8C3644A94B72E6749915C3895"
+            {
+            "Name" = "8:#1921"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:StartMenuFolder"
+                "Folders"
+                {
+                }
+            }
         }
         "LaunchCondition"
         {
@@ -1566,9 +1577,23 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_07965BB03C194CD89FFB4E7B00ACAB19"
+            {
+            "Name" = "8:attys-ecg"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_8A0D58CB17C34348BEB792090FA77E4E"
+            "Folder" = "8:_ED98A4B8C3644A94B72E6749915C3895"
+            "WorkingFolder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
+            "Icon" = "8:_962966E1C3604EF181B48379D48C42FF"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1DDEBC603A994494B0809FBDC7052BE4"
             {
-            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
+            "Name" = "8:attys-ecg"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -1582,7 +1607,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_289552FCA66248BE95183E668E3B05E7"
             {
-            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
+            "Name" = "8:attys-ecg"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

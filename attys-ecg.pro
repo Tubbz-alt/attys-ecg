@@ -1,4 +1,5 @@
 unix {
+
 MOC_DIR = moc
 
 OBJECTS_DIR = obj
@@ -31,6 +32,9 @@ CONFIG		+= qt release c++11
 QT             	+= widgets
 
 RESOURCES     = application.qrc
+
+target.path     = /usr/local/bin
+INSTALLS        += target
 
 }
 

@@ -68,13 +68,13 @@ class MainWindow : public QWidget
   // time counter
   long int sampleNumber = 0;
 
-  Iir::RBJ::IIRNotch iirnotch1;
+  Iir::Butterworth::BandStop<IIRORDER> iirnotch1;
   Iir::Butterworth::HighPass<IIRORDER> iirhp1;
 
-  Iir::RBJ::IIRNotch iirnotch2;
+  Iir::Butterworth::BandStop<IIRORDER> iirnotch2;
   Iir::Butterworth::HighPass<IIRORDER> iirhp2;
 
-  Iir::Butterworth::HighPass<IIRORDER>* iirAcc;
+  Iir::Butterworth::HighPass<IIRORDER> iirAcc[3];
 
   ECG_rr_det* rr_det1;
   ECG_rr_det* rr_det2;

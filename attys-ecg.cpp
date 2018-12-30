@@ -26,6 +26,8 @@
 #include "AttysComm.h"
 #include "AttysScan.h"
 
+#define NOTCH_BW 2.5
+
 MainWindow::MainWindow(QWidget *parent) :
 	QWidget(parent) {
 
@@ -62,7 +64,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	iirhp2.setup(sampling_rate, HP_CUTOFF);
 
 	// highpass filters for the adaptive filter
-	iirAcc = new Iir::Butterworth::HighPass<IIRORDER>[3];
 	for(int i=0;i<3;i++) {
 		iirAcc[i].setup(sampling_rate, HP_CUTOFF);
 	}
@@ -324,8 +325,8 @@ void MainWindow::slotSaveECG()
 }
 
 void MainWindow::setNotch(double f) {
-	iirnotch1.setup(sampling_rate, f);
-	iirnotch2.setup(sampling_rate, f);
+	iirnotch1.setup(sampling_rate, f, NOTCH_BW);
+	iirnotch2.setup(sampling_rate, f, NOTCH_BW);
 }
 
 void MainWindow::slotSelectNotchFreq(int f) {

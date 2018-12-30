@@ -54,24 +54,17 @@ MainWindow::MainWindow(QWidget *parent) :
 	maxAcc = -minAcc;
 
 	// 50Hz or 60Hz mains notch filter
-	iirnotch1 = new Iir::Butterworth::BandStop<IIRORDER>;
-	assert(iirnotch1 != NULL);
-	iirnotch2 = new Iir::Butterworth::BandStop<IIRORDER>;
-	assert(iirnotch2 != NULL);
 	// we set it to 50Hz initially
 	setNotch(50);
 
 	// highpass
-	iirhp1 = new Iir::Butterworth::HighPass<IIRORDER>;
-	iirhp1->setup(IIRORDER, sampling_rate, HP_CUTOFF);
-	iirhp2 = new Iir::Butterworth::HighPass<IIRORDER>;
-	iirhp2->setup(IIRORDER, sampling_rate, HP_CUTOFF);
+	iirhp1.setup(sampling_rate, HP_CUTOFF);
+	iirhp2.setup(sampling_rate, HP_CUTOFF);
 
 	// highpass filters for the adaptive filter
-	iirAcc = new Iir::Butterworth::HighPass<IIRORDER>*[3];
+	iirAcc = new Iir::Butterworth::HighPass<IIRORDER>[3];
 	for(int i=0;i<3;i++) {
-		iirAcc[i] = new Iir::Butterworth::HighPass<IIRORDER>;
-		iirAcc[i]->setup(IIRORDER, sampling_rate, HP_CUTOFF);
+		iirAcc[i].setup(sampling_rate, HP_CUTOFF);
 	}
 		
 	// lms
@@ -331,8 +324,8 @@ void MainWindow::slotSaveECG()
 }
 
 void MainWindow::setNotch(double f) {
-	iirnotch1->setup(IIRORDER, sampling_rate, f, 2.5);
-	iirnotch2->setup(IIRORDER, sampling_rate, f, 2.5);
+	iirnotch1.setup(sampling_rate, f);
+	iirnotch2.setup(sampling_rate, f);
 }
 
 void MainWindow::slotSelectNotchFreq(int f) {
@@ -418,12 +411,12 @@ void MainWindow::hasData(float, float *sample)
 	accZ = sample[AttysComm::INDEX_Acceleration_Z];
 
 	// removing 50Hz notch
-	y1 = iirnotch1->filter(y1);
-	y2 = iirnotch2->filter(y2);
+	y1 = iirnotch1.filter(y1);
+	y2 = iirnotch2.filter(y2);
 
 	// highpass filtering of the data
-	y1 = iirhp1->filter(y1);
-	y2 = iirhp2->filter(y2);
+	y1 = iirhp1.filter(y1);
+	y2 = iirhp2.filter(y2);
 
 	// do we do adaptive filtering
 	if (lmsCheckBox->isChecked()) {
@@ -432,7 +425,7 @@ void MainWindow::hasData(float, float *sample)
 		double corr2 = 0;
 		for(int i=0;i<3;i++) {
 			double acc = sample[AttysComm::INDEX_Acceleration_X+i];
-			acc = iirAcc[i]->filter(acc);
+			acc = iirAcc[i].filter(acc);
 			// fprintf(stderr,"%f\n",acc);
 			corr1 += lms1[i]->filter(acc);
 			corr2 += lms2[i]->filter(acc);

@@ -45,6 +45,8 @@ INSTALLS        += target
 
 win32 {
 
+CONFIG += 64bit
+
 MOC_DIR = moc
 
 OBJECTS_DIR = obj

@@ -177,12 +177,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8A0D58CB17C34348BEB792090FA77E4E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8A7251000C144C6D8E19E0893C96F15E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -213,6 +207,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_989D5DFF6DE14EF2B26962ED14F85579"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A554F8D95D5D49B289D4DC10CAC874D0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -232,6 +232,12 @@
         "Entry"
         {
         "MsmKey" = "8:_B9F91E89D16E4BAE9076F3589A542CC6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BA6123114D0D4692BDD474E67080E7B1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1014,6 +1020,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_989D5DFF6DE14EF2B26962ED14F85579"
+            {
+            "SourcePath" = "8:..\\release\\styles\\qwindowsvistastyle.dll"
+            "TargetName" = "8:qwindowsvistastyle.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_CD0B8D1B209440A4BBAA1A407F78F7B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A554F8D95D5D49B289D4DC10CAC874D0"
             {
             "SourcePath" = "8:..\\LICENSE"
@@ -1394,6 +1420,17 @@
                         {
                         }
                     }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_CD0B8D1B209440A4BBAA1A407F78F7B4"
+                    {
+                    "Name" = "8:styles"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_13E7C3CE93694EC98BCC90B756472633"
+                        "Folders"
+                        {
+                        }
+                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_D7FC56CD431644D2B0D3147E63B1C73F"
                     {
                     "Name" = "8:translations"
@@ -1577,44 +1614,44 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_07965BB03C194CD89FFB4E7B00ACAB19"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_34A764DB07494A178AF835240C61EAF0"
             {
-            "Name" = "8:attys-ecg"
+            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_8A0D58CB17C34348BEB792090FA77E4E"
+            "Target" = "8:_BA6123114D0D4692BDD474E67080E7B1"
             "Folder" = "8:_ED98A4B8C3644A94B72E6749915C3895"
             "WorkingFolder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
             "Icon" = "8:_962966E1C3604EF181B48379D48C42FF"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1DDEBC603A994494B0809FBDC7052BE4"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A979764ADB3544FBA76C3C980A5CE9CF"
             {
-            "Name" = "8:attys-ecg"
+            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_8A0D58CB17C34348BEB792090FA77E4E"
-            "Folder" = "8:_5391A377CFF84E0BBC884BB092E25EE5"
+            "Target" = "8:_BA6123114D0D4692BDD474E67080E7B1"
+            "Folder" = "8:_0D5515389DCA4A6D92E66CF0EB135DA0"
             "WorkingFolder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
             "Icon" = "8:_962966E1C3604EF181B48379D48C42FF"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_289552FCA66248BE95183E668E3B05E7"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AB9DF0DB7CFF480B86C67A805210B891"
             {
-            "Name" = "8:attys-ecg"
+            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_8A0D58CB17C34348BEB792090FA77E4E"
-            "Folder" = "8:_0D5515389DCA4A6D92E66CF0EB135DA0"
+            "Target" = "8:_BA6123114D0D4692BDD474E67080E7B1"
+            "Folder" = "8:_5391A377CFF84E0BBC884BB092E25EE5"
             "WorkingFolder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
             "Icon" = "8:_962966E1C3604EF181B48379D48C42FF"
             "Feature" = "8:"
@@ -2066,7 +2103,7 @@
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:FALSE"
-            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Redist\\MSVC\\14.10.25008\\MergeModules\\Microsoft_VC150_CRT_x64.msm"
+            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Redist\\MSVC\\14.16.27012\\MergeModules\\Microsoft_VC141_CRT_x64.msm"
                 "Properties"
                 {
                 }
@@ -2079,7 +2116,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8A0D58CB17C34348BEB792090FA77E4E"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BA6123114D0D4692BDD474E67080E7B1"
             {
             "SourcePath" = "8:..\\release\\attys-ecg.exe"
             "TargetName" = "8:"
@@ -2101,7 +2138,7 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{438BBF23-1470-34E7-A732-4E8819F66E74}"
+            "OutputProjectGuid" = "8:{B20E5706-349B-452C-B253-54BA6DC0997C}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

@@ -23,7 +23,7 @@ everything.
 * Install: Visual Studio 2017 community edition
 * clone iir1 in your root directory: https://github.com/berndporr/iir1 and compile it (release and debug version)
 * clone fir1 in your root directory: https://github.com/berndporr/fir1 and compile it (release and debug version)
-* Download the open source version of QT5, 64 bits for visual C++ 2015/2017 from www.qt.io.
+* Download the open source version of QT5, 64 bits for visual C++ from www.qt.io.
 * Download Qwt from http://qwt.sf.net (the latest version 6.x), unpack it in the parent directory and compile it (as release & debug)
 * git clone https://github.com/glasgowneuro/AttysComm.git in the parent directory or modify the .pro file
 * "qmake -tp vc" and then re-target the project twice (right click on attys_scope in the Solutions Explorer -> Retarget Projects)

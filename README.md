@@ -30,8 +30,9 @@ everything.
 * Edit attys-ecg.pro and adjust the path variables so that they point to AttysComm and the IIR libary
 * Open the .sln file
 * Build attys-ecg
-* go to the "debug" subdirectory
-* run "windeployqt attys-ecg.exe" which copies all the DLLs into this directory which are needed to run the app
+* go to the "release" subdirectory
+* copy qwt.dll into it
+* run "windeployqt attys-ecg.exe qwt.dll" which copies all the DLLs into this directory which are needed to run the app
 * Build the msi installer which will be in the "installer" subdirectory.
 
 

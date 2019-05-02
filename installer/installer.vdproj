@@ -1493,15 +1493,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:attys-ecg"
-        "ProductCode" = "8:{9BE809A1-6BF7-43E1-877F-9832A10AD5AF}"
-        "PackageCode" = "8:{A247B8D7-2B85-44E9-86B0-A546A0EBFAB3}"
+        "ProductCode" = "8:{D606340E-33D6-4E2F-8D3B-1AE1683290A2}"
+        "PackageCode" = "8:{1F8A12B4-C46D-4CFF-B40B-EF20004D045A}"
         "UpgradeCode" = "8:{C423B23A-A5E9-45D2-AE89-16452CCC6E26}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.4"
+        "ProductVersion" = "8:1.1.5"
         "Manufacturer" = "8:glasgow_neuro"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1616,7 +1616,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_34A764DB07494A178AF835240C61EAF0"
             {
-            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
+            "Name" = "8:attys-ecg"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -1630,7 +1630,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A979764ADB3544FBA76C3C980A5CE9CF"
             {
-            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
+            "Name" = "8:attys-ecg"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -1644,7 +1644,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AB9DF0DB7CFF480B86C67A805210B891"
             {
-            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
+            "Name" = "8:attys-ecg"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

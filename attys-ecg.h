@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2003 by Matthias H. Hennig                              *
  *   hennig@cn.stir.ac.uk                                                  *
- *   Copyright (C) 2005-2018 by Bernd Porr                                      *
+ *   Copyright (C) 2005-2019 by Bernd Porr                                 *
  *   mail@berndporr.me.uk                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -132,18 +132,16 @@ protected:
 		  det = _det;
 	  };
 	  void hasRpeak(long samplenumber,
-			float filtBpm,
-			float unFiltBpm,
+			float bpm,
 			double amplitude,
 			double confidence) {
-		  mainwindow->hasRpeak(det,samplenumber,filtBpm,unFiltBpm,amplitude,confidence);
+		  mainwindow->hasRpeak(det,samplenumber,bpm,amplitude,confidence);
 	  };
   };
 
   void hasRpeak(ECG_rr_det* det,
 		long samplenumber,
-		float filtBpm,
-		float unFiltBpm,
+		float bpm,
 		double amplitude,
 		double confidence);
   BPMCallback* bPMCallback1;

@@ -1,36 +1,25 @@
 #ifndef ECG_RR_DET_H
 #define ECG_RR_DET_H
 
-#include <Iir.h>
+#include <Fir1.h>
 
-#define IIRORDER 2
-
-
+// R peak detector using a DB3 wavelet. Runs only at 250Hz.
 class ECG_rr_det {
+
+    // sampling rate in Hz
+    const float samplingRateInHz = 250;
 
     // how fast the adaptive threshold follows changes in ECG
     // amplitude. Realisic values: 0.1 .. 1.0
     // 0.1 = slow recovery after an artefact but no wrong detections
     // 1 = fast recovery after an artefact but possibly wrong detections
-    float adaptive_threshold_decay_constant = 0.25F;
+    const float adaptive_threshold_decay_constant = 0.25F;
 
     // the threshold for the detection is 0.6 times smaller than the amplitude
-    float threshold_factor = 0.6F;
-
-    // bandwidth of the powerline filter
-    double notchBW = 2.5; // Hz
-
-    // notch order of the powerline filter
-    int notchOrder = 2;
+    const float threshold_factor = 0.6F;
 
     // 10mV as the threshold the bandpass filtered ECG is an artefact
-    double artefact_threshold = 10;
-
-    // ignores 1000 samples to let the filter settle
-    int ignoreECGdetector = 1000;
-
-    // adaptive amplitude value of the detector output
-    double amplitude = 0.0;
+    const double artefact_threshold = 10;
 
 public:
     double getAmplitude() {
@@ -49,41 +38,26 @@ private:
     // timewindow not to detect an R peak
     int doNotDetect = 0;
 
+    // counts towards zero every RR peak
+    // if non zero the RR value is ignored
     int ignoreRRvalue = 2;
 
-    // three HR's are stored and a median filter is applied to them
-    float* hrBuffer;
-    float* sortBuffer;
+    // ignores samples to let the filter settle
+    int ignoreECGdetector = 1000;
 
-    // the R preak detector. This is a matched filter implemented as IIR
-    Iir::Butterworth::BandPass<IIRORDER>* ecgDetector;
+    // the R preak detector as a wavelet filter
+    Fir1* ecgDetector = NULL;
 
-    // sampling rate in Hz
-    float samplingRateInHz;
-
-    // heartrate in BPM after median filtering (3 bpm readings)
-    float filtBPM = 0;
-
-    // heartrate in BPM without median filtering (might have 1/2 bpm readings)
-    float unfiltBPM = 0;
-
-    int medianFilterSize;
+    // adaptive amplitude value of the detector output
+    double amplitude = 0.0;
 
 public:
     // constructor
-    // provide the sampling rate and the median filter size
-    ECG_rr_det(float _samplingrateInHz, int _medianFilterSize) {
-        init(_samplingrateInHz, _medianFilterSize);
-    }
+    ECG_rr_det();
 
-    // constructor
-    // provide the sampling rate
-    ECG_rr_det(float _samplingrateInHz) {
-        init(_samplingrateInHz, 19);
-    }
+    // destructor
+    ~ECG_rr_det();
 
-private:
-    void init(float _samplingrateInHz, int _medianFilterSize);
 
 public:
     // this is a callback which is called whenever an R peak is detected
@@ -93,8 +67,7 @@ public:
     class RRlistener {
     public:
 	    virtual void hasRpeak(long samplenumber,
-				  float filtBpm,
-				  float unFiltBpm,
+				  float bpm,
 				  double amplitude,
 				  double confidence) = 0;
     };
@@ -110,19 +83,10 @@ public:
     // reset detector
     void reset();
 
-    float getFiltBPM() {
-        return filtBPM;
-    }
-
-    float getUnFiltBPM() {
-        return unfiltBPM;
-    }
-
     // detect r peaks
     // input: ECG samples at the specified sampling rate and in V
     void detect(float v);
 
 };
-
 
 #endif

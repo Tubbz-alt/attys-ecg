@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2003 by Matthias H. Hennig                              *
  *   hennig@cn.stir.ac.uk                                                  *
- *   Copyright (C) 2005-2018 by Bernd Porr                                 *
+ *   Copyright (C) 2005-2019 by Bernd Porr                                 *
  *   mail@berndporr.me.uk                                                  *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -34,8 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	attysScan.attysComm[0]->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);
 	sampling_rate = attysScan.attysComm[0]->getSamplingRateInHz();
 
-	rr_det1 = new ECG_rr_det(sampling_rate);
-	rr_det2 = new ECG_rr_det(sampling_rate);
+	rr_det1 = new ECG_rr_det();
+	rr_det2 = new ECG_rr_det();
 	bPMCallback1 = new BPMCallback(this,rr_det1);
 	bPMCallback2 = new BPMCallback(this,rr_det2);
 	rr_det1->setRrListener(bPMCallback1);
@@ -503,8 +503,7 @@ void MainWindow::hasData(float, float *sample)
 
 void  MainWindow::hasRpeak(ECG_rr_det* det,
 			   long,
-			   float filtBpm,
-			   float,
+			   float newBpm,
 			   double,
 			   double) {
 	//fprintf(stderr,"BPM = %f\n",filtBpm);
@@ -512,16 +511,16 @@ void  MainWindow::hasRpeak(ECG_rr_det* det,
 		// channel one stronger
 		rr_det_channel = 1;
 		if (det == rr_det1) {
-			bpm = filtBpm;
+			bpm = newBpm;
 		}
 	} else {
 		// channel two stronger
 		rr_det_channel = 2;
 		if (det == rr_det2) {
-			bpm = filtBpm;
+			bpm = newBpm;
 		}
 	}
-	bpm = filtBpm;
+	bpm = newBpm;
 	dataPlotBPM->setNewData(bpm);
 	char tmp[16];
 	sprintf(tmp,"%03d/%d BPM",(int)bpm,rr_det_channel);

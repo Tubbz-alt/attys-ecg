@@ -421,6 +421,8 @@ void MainWindow::hasData(float, float *sample)
 
 	// do we do adaptive filtering
 	if (lmsCheckBox->isChecked()) {
+		// fixme: FIR / delay for y1 / y2
+		
 		// adaptive filtering
 		double corr1 = 0;
 		double corr2 = 0;

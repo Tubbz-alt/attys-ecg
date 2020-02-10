@@ -531,5 +531,8 @@ void  MainWindow::hasRpeak(ECG_rr_det* det,
 	dataPlotBPM->setNewData(bpm);
 	char tmp[16];
 	sprintf(tmp,"%03d/%d BPM",(int)bpm,rr_det_channel);
+	if (ecgFile && (recordECG->isChecked())) {
+		fflush(ecgFile);
+	}
 	bpmLabel->setText(tmp);
 }

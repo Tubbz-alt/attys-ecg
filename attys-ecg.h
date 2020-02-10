@@ -21,6 +21,7 @@
 #include <QLabel>
 
 #include "AttysComm.h"
+#include "AttysScan.h"
 #include <qwt_counter.h>
 #include <qwt_plot_marker.h>
 
@@ -66,7 +67,10 @@ class MainWindow : public QWidget
   double sampling_rate;
 
   // time counter
-  long int sampleNumber = 0;
+  long unsigned int sampleNumber = 0;
+
+  // epoch time
+  long unsigned int start_time = 0;
 
   Iir::Butterworth::BandStop<IIRORDER> iirnotch1;
   Iir::Butterworth::HighPass<IIRORDER> iirhp1;
@@ -86,7 +90,6 @@ class MainWindow : public QWidget
 
   FILE* ecgFile = NULL;
   int recordingOn = 0;
-  double tRec = 0;
   QString fileName;
 
   QPushButton* recordECG;
@@ -156,6 +159,34 @@ public:
 
   MainWindow( QWidget *parent=0 );
   ~MainWindow();
+
+private:
+	class AttysECGCommMessage : public AttysCommMessage {
+		// pointer to the Scopewindow
+	public:
+		MainWindow* mainwindow;
+		virtual void hasMessage(int msg, const char*) {
+			if ((msg == AttysComm::MESSAGE_RECONNECTED) && mainwindow) {
+				mainwindow->attysHasReconnected();
+			}
+			if ((msg == AttysComm::MESSAGE_RECEIVING_DATA) && mainwindow) {
+				mainwindow->clearAllRingbuffers();
+			}
+		}
+	};
+
+	AttysECGCommMessage attysECGCommMessage;
+
+	void attysHasReconnected() {
+		if (start_time > 0) {
+			sampleNumber = (time(NULL) - start_time) * attysScan.attysComm[0]->getSamplingRateInHz();
+		}
+	}
+
+	void clearAllRingbuffers() {
+		attysScan.attysComm[0]->resetRingbuffer();
+	}
+
 
 };
 

@@ -31,6 +31,8 @@
 MainWindow::MainWindow(QWidget *parent) :
 	QWidget(parent) {
 
+	attysECGCommMessage.mainwindow = this;
+
 	attysScan.attysComm[0]->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);
 	sampling_rate = attysScan.attysComm[0]->getSamplingRateInHz();
 
@@ -281,6 +283,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	// Generate timer event every 50ms
 	startTimer(50);
 
+	attysScan.attysComm[0]->registerMessageCallback(&attysECGCommMessage);
 	attysScan.attysComm[0]->start();
 }
 
@@ -313,6 +316,7 @@ void MainWindow::slotSaveECG()
 			ecgFile = fopen(fileName.toLocal8Bit().constData(), "wt");
 			if (ecgFile) {
 				recordECG->setEnabled(true);
+				start_time = 0;
 			}
 			else {
 				QMessageBox msgbox;
@@ -369,7 +373,8 @@ void MainWindow::slotRecordECG()
 		recordECG->setEnabled(false);
 	}
 	recordingOn = recordECG->isChecked();
-	tRec = 0;
+	sampleNumber = 0;
+	start_time = time(NULL);
 	if (recordingOn) {
 		setWindowTitle(QString("attys-ecg: recording ") + fileName);
 	}
@@ -393,7 +398,8 @@ void MainWindow::timerEvent(QTimerEvent *) {
 	dataPlotAccY->replot();
 	dataPlotAccZ->replot();
 	if (recordingOn) {
-		QString tRecString = QString::number(((int)tRec));
+		double t = (double)sampleNumber / sampling_rate;
+		QString tRecString = QString::number(((int)t));
 		statusLabel->setText("Rec: t=" + tRecString+" sec");
 	}
 	else {
@@ -480,7 +486,7 @@ void MainWindow::hasData(float, float *sample)
 
 	// Are we recording?
 	saveFileMutex.lock();
-	if (ecgFile)
+	if (ecgFile && (recordECG->isChecked()))
 	{
 		char s = '\t';
 		double t = (double)sampleNumber / sampling_rate;
@@ -500,7 +506,6 @@ void MainWindow::hasData(float, float *sample)
 	saveFileMutex.unlock();
     
 	sampleNumber++;
-	tRec = tRec + 1.0 / sampling_rate;
 }
 
 void  MainWindow::hasRpeak(ECG_rr_det* det,

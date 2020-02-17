@@ -7,7 +7,7 @@ for Windows/Linux
 
 # Installation
 
-## Linux
+## Linux / MacOS
 
 You need the following libraries to compile and run the program:
 

@@ -83,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	char styleSheet[] = "padding:0px;margin:0px;border:0px;";
 	char styleSheetCombo[] = "padding:0px;margin:0px;border:0px;margin-right:2px;font: 16px";
 	char styleSheetGroupBox[] = "padding:1px;margin:0px;border:0px";
-	char styleSheetButton[] = "background-color: rgb(224, 224, 224); border: none; outline: none; border-width: 0px; font: 16px; padding: 5px;";
+	char styleSheetButton[] = "background-color: grey; border: none; outline: none; border-width: 0px; font: 16px; padding: 5px; color: white;";
 
 	QHBoxLayout *mainLayout = new QHBoxLayout(this);
 

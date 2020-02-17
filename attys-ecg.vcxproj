@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B20E5706-349B-452C-B253-54BA6DC0997C}</ProjectGuid>
+    <ProjectGuid>{438BBF23-1470-34E7-A732-4E8819F66E74}</ProjectGuid>
     <RootNamespace>attys-ecg</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
@@ -57,8 +57,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;\iir1;\fir1;..\AttysComm\cpp;\qwt\src;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include\QtWidgets;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include\QtGui;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include\QtANGLE;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include\QtCore;moc;C:\VulkanSDK\1.0.51.0\include;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>.;\iir1;\fir1;..\attys-comm;\qwt\src;C:\ProgramData\Anaconda3\Library\include\qt;C:\ProgramData\Anaconda3\Library\include\qt\QtWidgets;C:\ProgramData\Anaconda3\Library\include\qt\QtGui;C:\ProgramData\Anaconda3\Library\include\qt\QtANGLE;C:\ProgramData\Anaconda3\Library\include\qt\QtCore;moc;C:\ProgramData\Anaconda3\Library\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>obj\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -66,7 +66,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>obj\</ObjectFileName>
       <Optimization>MaxSpeed</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;DISABLE_WINRT_DEPRECATION;WIN64;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <ProgramDataBaseFileName>
       </ProgramDataBaseFileName>
@@ -76,8 +76,8 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>\qwt\lib\qwt.lib;\iir1\Release\iir_static.lib;\fir1\Release\fir_static.lib;"C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x64\ws2_32.lib";..\AttysComm\cpp\Release\attyscomm_static.lib;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib\Qt5Widgets.lib;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib\Qt5Gui.lib;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib\Qt5Core.lib;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib\qtmain.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>\qwt\lib;\iir1\Release;\fir1\Release;..\AttysComm\cpp\Release;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\ProgramData\Anaconda3\Library\lib\qtmain.lib;shell32.lib;\qwt\lib\qwt.lib;\iir1\Release\iir_static.lib;\fir1\Release\fir_static.lib;ws2_32.lib;..\attys-comm\Release\attyscomm_static.lib;C:\ProgramData\Anaconda3\Library\lib\Qt5Widgets.lib;C:\ProgramData\Anaconda3\Library\lib\Qt5Gui.lib;C:\ProgramData\Anaconda3\Library\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\ProgramData\Anaconda3\Library\lib;C:\ProgramData\Anaconda3\Library\lib;\qwt\lib;\iir1\Release;\fir1\Release;..\attys-comm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -94,13 +94,13 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;DISABLE_WINRT_DEPRECATION;WIN64;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;\iir1;\fir1;..\AttysComm\cpp;\qwt\src;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include\QtWidgets;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include\QtGui;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include\QtANGLE;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\include\QtCore;moc;C:\VulkanSDK\1.0.51.0\include;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>.;\iir1;\fir1;..\attys-comm;\qwt\src;C:\ProgramData\Anaconda3\Library\include\qt;C:\ProgramData\Anaconda3\Library\include\qt\QtWidgets;C:\ProgramData\Anaconda3\Library\include\qt\QtGui;C:\ProgramData\Anaconda3\Library\include\qt\QtANGLE;C:\ProgramData\Anaconda3\Library\include\qt\QtCore;moc;C:\ProgramData\Anaconda3\Library\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>obj\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -108,7 +108,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>obj\</ObjectFileName>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;DISABLE_WINRT_DEPRECATION;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -116,8 +116,8 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>\qwt\lib\qwtd.lib;\iir1\Debug\iir_static.lib;\fir1\Debug\fir_static.lib;"C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x64\ws2_32.lib";..\AttysComm\cpp\Debug\attyscomm_static.lib;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib\Qt5Widgetsd.lib;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib\Qt5Guid.lib;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib\Qt5Cored.lib;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib\qtmaind.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>\qwt\lib;\iir1\Debug;\fir1\Debug;..\AttysComm\cpp\Debug;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>qtmaind.lib;\qwt\lib\qwtd.lib;\iir1\Debug\iir_static.lib;\fir1\Debug\fir_static.lib;ws2_32.lib;..\attys-comm\Debug\attyscomm_static.lib;Qt5Widgetsd.lib;Qt5Guid.lib;Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\ProgramData\Anaconda3\Library\lib;\qwt\lib;\iir1\Debug;\fir1\Debug;..\attys-comm\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -133,7 +133,7 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;DISABLE_WINRT_DEPRECATION;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -144,12 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="attys-ecg.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">attys-ecg.h;moc\moc_predefs.h;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include D:/glasgow_neuro/attys/software/attys-ecg/moc/moc_predefs.h -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/mkspecs/win32-msvc -ID:/glasgow_neuro/attys/software/attys-ecg -ID:/iir1 -ID:/fir1 -ID:/glasgow_neuro/attys/software/AttysComm/cpp -ID:/qwt/src -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include/QtWidgets -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include/QtGui -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include/QtANGLE -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\cppwinrt" attys-ecg.h -o moc\moc_attys-ecg.cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">attys-ecg.h;moc\moc_predefs.h;C:\ProgramData\Anaconda3\Library\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\ProgramData\Anaconda3\Library\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -DDISABLE_WINRT_DEPRECATION -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include moc/moc_predefs.h -IC:/ProgramData/Anaconda3/Library/mkspecs/win32-msvc -ID:/glasgow_neuro/attys/software/attys-ecg -ID:/iir1 -ID:/fir1 -ID:/glasgow_neuro/attys/software/attys-comm -ID:/qwt/src -IC:/ProgramData/Anaconda3/Library/include/qt -IC:/ProgramData/Anaconda3/Library/include/qt/QtWidgets -IC:/ProgramData/Anaconda3/Library/include/qt/QtGui -IC:/ProgramData/Anaconda3/Library/include/qt/QtANGLE -IC:/ProgramData/Anaconda3/Library/include/qt/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\cppwinrt" attys-ecg.h -o moc\moc_attys-ecg.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC attys-ecg.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">moc\moc_attys-ecg.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">attys-ecg.h;moc\moc_predefs.h;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include D:/glasgow_neuro/attys/software/attys-ecg/moc/moc_predefs.h -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/mkspecs/win32-msvc -ID:/glasgow_neuro/attys/software/attys-ecg -ID:/iir1 -ID:/fir1 -ID:/glasgow_neuro/attys/software/AttysComm/cpp -ID:/qwt/src -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include/QtWidgets -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include/QtGui -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include/QtANGLE -IC:/Qt/Qt5.12.2/5.12.2/msvc2017_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\cppwinrt" attys-ecg.h -o moc\moc_attys-ecg.cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">attys-ecg.h;moc\moc_predefs.h;C:\ProgramData\Anaconda3\Library\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\ProgramData\Anaconda3\Library\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -DDISABLE_WINRT_DEPRECATION -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include moc/moc_predefs.h -IC:/ProgramData/Anaconda3/Library/mkspecs/win32-msvc -ID:/glasgow_neuro/attys/software/attys-ecg -ID:/iir1 -ID:/fir1 -ID:/glasgow_neuro/attys/software/attys-comm -ID:/qwt/src -IC:/ProgramData/Anaconda3/Library/include/qt -IC:/ProgramData/Anaconda3/Library/include/qt/QtWidgets -IC:/ProgramData/Anaconda3/Library/include/qt/QtGui -IC:/ProgramData/Anaconda3/Library/include/qt/QtANGLE -IC:/ProgramData/Anaconda3/Library/include/qt/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\cppwinrt" attys-ecg.h -o moc\moc_attys-ecg.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC attys-ecg.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc\moc_attys-ecg.cpp;%(Outputs)</Outputs>
     </CustomBuild>
@@ -160,12 +160,12 @@
     <ClCompile Include="moc\moc_attys-ecg.cpp" />
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -BxC:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MD -E C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\ProgramData\Anaconda3\Library\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -BxC:\ProgramData\Anaconda3\Library\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -O2 -MD -E C:\ProgramData\Anaconda3\Library\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -BxC:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -E C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\ProgramData\Anaconda3\Library\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -BxC:\ProgramData\Anaconda3\Library\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zi -MDd -E C:\ProgramData\Anaconda3\Library\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
     </CustomBuild>
@@ -179,12 +179,12 @@
   <ItemGroup>
     <CustomBuild Include="application.qrc">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">application.qrc;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\rcc.exe;attys.png;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\rcc.exe -name application application.qrc -o release\qrc_application.cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">application.qrc;C:\ProgramData\Anaconda3\Library\bin\rcc.exe;attys.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\ProgramData\Anaconda3\Library\bin\rcc.exe -name application application.qrc -o release\qrc_application.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RCC application.qrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\qrc_application.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">application.qrc;C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\rcc.exe;attys.png;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin\rcc.exe -name application application.qrc -o debug\qrc_application.cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">application.qrc;C:\ProgramData\Anaconda3\Library\bin\rcc.exe;attys.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\ProgramData\Anaconda3\Library\bin\rcc.exe -name application application.qrc -o debug\qrc_application.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">RCC application.qrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\qrc_application.cpp;%(Outputs)</Outputs>
     </CustomBuild>

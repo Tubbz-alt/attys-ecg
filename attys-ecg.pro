@@ -59,7 +59,7 @@ Debug:LIBS += \
     -L/fir1/Debug \
     -lfir_static \
     -lws2_32 \
-    -L../AttysComm/cpp/Debug \
+    -L../attys-comm/Debug \
     -lattyscomm_static
 
 
@@ -71,13 +71,13 @@ Release:LIBS += \
     -L/fir1/Release \
     -lfir_static \
     -lws2_32 \
-    -L../AttysComm/cpp/Release \
+    -L../attys-comm/Release \
     -lattyscomm_static
 
 
 INCLUDEPATH += /iir1
 INCLUDEPATH += /fir1
-INCLUDEPATH += ../AttysComm/cpp/
+INCLUDEPATH += ../attys-comm/
 INCLUDEPATH += /qwt/src
 
 SOURCES = \

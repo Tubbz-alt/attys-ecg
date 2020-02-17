@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2003 by Matthias H. Hennig                              *
  *   hennig@cn.stir.ac.uk                                                  *
- *   Copyright (C) 2005-2019 by Bernd Porr                                 *
+ *   Copyright (C) 2005-2020 by Bernd Porr                                 *
  *   mail@berndporr.me.uk                                                  *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *

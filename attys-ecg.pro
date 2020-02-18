@@ -1,4 +1,4 @@
-unix {
+unix:!macx {
 
 MOC_DIR = moc
 
@@ -28,6 +28,48 @@ HEADERS = \
     ecg_rr_det.h
 
 CONFIG		+= qt release c++11
+
+QT             	+= widgets
+
+RESOURCES     = application.qrc
+
+target.path     = /usr/local/bin
+INSTALLS        += target
+
+}
+
+
+
+macx {
+
+MOC_DIR = moc
+
+OBJECTS_DIR = obj
+
+LIBS += \
+    -L/usr/local/lib \
+    -liir \
+    -lattyscomm \
+    -lfir
+
+INCLUDEPATH += /usr/local/include
+
+include ( /usr/local/Cellar/qwt/6.1.4/features/qwt.prf )
+
+TMAKE_CXXFLAGS += -fno-exceptions
+
+SOURCES = \
+    dataplot.cpp \
+    main.cpp \
+    attys-ecg.cpp \
+    ecg_rr_det.cpp
+
+HEADERS = \
+    attys-ecg.h \
+    dataplot.h \
+    ecg_rr_det.h
+
+CONFIG		+= qt release c++11 qwt
 
 QT             	+= widgets
 

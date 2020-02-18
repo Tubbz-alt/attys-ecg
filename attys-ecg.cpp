@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2003 by Matthias H. Hennig                              *
  *   hennig@cn.stir.ac.uk                                                  *
- *   Copyright (C) 2005-2019 by Bernd Porr                                 *
+ *   Copyright (C) 2005-2020 by Bernd Porr                                 *
  *   mail@berndporr.me.uk                                                  *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	QWidget(parent) {
 
 	attysECGCommMessage.mainwindow = this;
+
+	setStyleSheet("background-color:rgb(96,96,96);");
+	setAutoFillBackground( true );
 
 	attysScan.attysComm[0]->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);
 	sampling_rate = attysScan.attysComm[0]->getSamplingRateInHz();
@@ -83,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	char styleSheet[] = "padding:0px;margin:0px;border:0px;";
 	char styleSheetCombo[] = "padding:0px;margin:0px;border:0px;margin-right:2px;font: 16px";
 	char styleSheetGroupBox[] = "padding:1px;margin:0px;border:0px";
-	char styleSheetButton[] = "background-color: rgb(224, 224, 224); border: none; outline: none; border-width: 0px; font: 16px; padding: 5px;";
+	char styleSheetButton[] = "background-color: grey; border: none; outline: none; border-width: 0px; font: 16px; padding: 5px; color: white;";
 
 	QHBoxLayout *mainLayout = new QHBoxLayout(this);
 
@@ -304,7 +307,8 @@ void MainWindow::slotSaveECG()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(filters);
 	dialog.setViewMode(QFileDialog::Detail);
-
+	dialog.setAcceptMode(QFileDialog::AcceptMode::AcceptSave);
+	
 	if (dialog.exec()) {
 		fileName = dialog.selectedFiles()[0];
 		if (!fileName.isNull()) {

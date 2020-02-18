@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2003 by Matthias H. Hennig                              *
  *   hennig@cn.stir.ac.uk                                                  *
- *   Copyright (C) 2018 by Bernd Porr, mail@berndporr.me.uk                *
+ *   Copyright (C) 2018-2020 by Bernd Porr, mail@berndporr.me.uk                *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -38,7 +38,8 @@ DataPlot::DataPlot(double _maxTime,
 
 	// Insert new curve for raw data
 	dataCurve = new QwtPlotCurve(title);
-	dataCurve->setPen( QPen(Qt::blue, 2) );
+	dataCurve->setPen( QPen(Qt::lightGray, 2) );
+	
 	dataCurve->setRawSamples(xData, yData, length);
 	dataCurve->attach(this);
 }

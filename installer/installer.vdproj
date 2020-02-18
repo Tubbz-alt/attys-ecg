@@ -237,12 +237,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BA6123114D0D4692BDD474E67080E7B1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_BB6C49B16D3D49A382BDF438521F5A12"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -280,6 +274,12 @@
         "Entry"
         {
         "MsmKey" = "8:_E0FF536E6EA3415EBE648A94C5C01E8D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E9B39AA1D2C74AC7AA42E76215DB2C88"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1493,15 +1493,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:attys-ecg"
-        "ProductCode" = "8:{C210B954-D4D4-45C1-A6BA-BFFA9043A7E1}"
-        "PackageCode" = "8:{A7EDA4F0-1D60-4C7D-AC47-E475B1837B5A}"
+        "ProductCode" = "8:{6E60EADC-79E4-4941-9F1D-8005C7B7D565}"
+        "PackageCode" = "8:{6D497AAA-CE76-4CC5-AEEB-BCAD9D0183E3}"
         "UpgradeCode" = "8:{C423B23A-A5E9-45D2-AE89-16452CCC6E26}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3.0"
+        "ProductVersion" = "8:1.3.1"
         "Manufacturer" = "8:glasgow_neuro"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1614,44 +1614,44 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_34A764DB07494A178AF835240C61EAF0"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2BC291B05AD843F28B075A13D809688E"
             {
-            "Name" = "8:attys-ecg"
+            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_BA6123114D0D4692BDD474E67080E7B1"
+            "Target" = "8:_E9B39AA1D2C74AC7AA42E76215DB2C88"
+            "Folder" = "8:_5391A377CFF84E0BBC884BB092E25EE5"
+            "WorkingFolder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
+            "Icon" = "8:_962966E1C3604EF181B48379D48C42FF"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_722C93986E154D7DACDB083831E58AED"
+            {
+            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_E9B39AA1D2C74AC7AA42E76215DB2C88"
             "Folder" = "8:_ED98A4B8C3644A94B72E6749915C3895"
             "WorkingFolder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
             "Icon" = "8:_962966E1C3604EF181B48379D48C42FF"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A979764ADB3544FBA76C3C980A5CE9CF"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C6F68ED4EB9A43218E3C13A8FA78B136"
             {
-            "Name" = "8:attys-ecg"
+            "Name" = "8:Shortcut to Primary Output from attys-ecg (Active)"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_BA6123114D0D4692BDD474E67080E7B1"
+            "Target" = "8:_E9B39AA1D2C74AC7AA42E76215DB2C88"
             "Folder" = "8:_0D5515389DCA4A6D92E66CF0EB135DA0"
-            "WorkingFolder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
-            "Icon" = "8:_962966E1C3604EF181B48379D48C42FF"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AB9DF0DB7CFF480B86C67A805210B891"
-            {
-            "Name" = "8:attys-ecg"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_BA6123114D0D4692BDD474E67080E7B1"
-            "Folder" = "8:_5391A377CFF84E0BBC884BB092E25EE5"
             "WorkingFolder" = "8:_2EE3E16F7CAB42F19F95343399E381AE"
             "Icon" = "8:_962966E1C3604EF181B48379D48C42FF"
             "Feature" = "8:"
@@ -2116,7 +2116,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BA6123114D0D4692BDD474E67080E7B1"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E9B39AA1D2C74AC7AA42E76215DB2C88"
             {
             "SourcePath" = "8:..\\release\\attys-ecg.exe"
             "TargetName" = "8:"
@@ -2138,7 +2138,7 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{B20E5706-349B-452C-B253-54BA6DC0997C}"
+            "OutputProjectGuid" = "8:{438BBF23-1470-34E7-A732-4E8819F66E74}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

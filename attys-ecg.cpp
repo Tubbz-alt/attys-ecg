@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	attysECGCommMessage.mainwindow = this;
 
-	setStyleSheet("background-color:rgb(32,32,32);");
+	setStyleSheet("background-color:rgb(32,32,32);color: white;");
 	setAutoFillBackground( true );
 
 	attysScan.attysComm[0]->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);

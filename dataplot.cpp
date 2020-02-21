@@ -38,7 +38,7 @@ DataPlot::DataPlot(double _maxTime,
 
 	// Insert new curve for raw data
 	dataCurve = new QwtPlotCurve(title);
-	dataCurve->setPen( QPen(Qt::lightGray, 2) );
+	dataCurve->setPen( QPen(Qt::yellow, 2) );
 	
 	dataCurve->setRawSamples(xData, yData, length);
 	dataCurve->attach(this);

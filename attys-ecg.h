@@ -69,9 +69,6 @@ class MainWindow : public QWidget
   // time counter
   long unsigned int sampleNumber = 0;
 
-  // epoch time
-  long unsigned int start_time = 0;
-
   Iir::Butterworth::BandStop<IIRORDER> iirnotch1;
   Iir::Butterworth::HighPass<IIRORDER> iirhp1;
 
@@ -120,11 +117,11 @@ protected:
   struct AttysCallback : AttysCommListener {
 	  MainWindow* mainwindow;
 	  AttysCallback(MainWindow* _mainwindow) { mainwindow = _mainwindow; };
-	  virtual void hasSample(float ts,float *data) {
+	  virtual void hasSample(double ts,float *data) {
 		  mainwindow->hasData(ts,data);
 	  };
   };
-  void hasData(float,float *sample);
+  void hasData(double t,float *sample);
   AttysCallback* attysCallback;
 
   struct BPMCallback : ECG_rr_det::RRlistener {
@@ -161,32 +158,13 @@ public:
   ~MainWindow();
 
 private:
-	class AttysECGCommMessage : public AttysCommMessage {
-		// pointer to the Scopewindow
-	public:
-		MainWindow* mainwindow;
-		virtual void hasMessage(int msg, const char*) {
-			if ((msg == AttysComm::MESSAGE_RECONNECTED) && mainwindow) {
-				mainwindow->attysHasReconnected();
-			}
-			if ((msg == AttysComm::MESSAGE_RECEIVING_DATA) && mainwindow) {
-				mainwindow->clearAllRingbuffers();
-			}
-		}
-	};
-
-	AttysECGCommMessage attysECGCommMessage;
-
-	void attysHasReconnected() {
-		if (start_time > 0) {
-			sampleNumber = (time(NULL) - start_time) * attysScan.attysComm[0]->getSamplingRateInHz();
-		}
-	}
-
 	void clearAllRingbuffers() {
 		attysScan.attysComm[0]->resetRingbuffer();
 	}
 
+	double start_time = 0;
+
+	int current_secs = 0;
 
 };
 

@@ -31,8 +31,6 @@
 MainWindow::MainWindow(QWidget *parent) :
 	QWidget(parent) {
 
-	attysECGCommMessage.mainwindow = this;
-
 	setStyleSheet("background-color:rgb(32,32,32);color: white;");
 	setAutoFillBackground( true );
 
@@ -286,7 +284,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	// Generate timer event every 50ms
 	startTimer(50);
 
-	attysScan.attysComm[0]->registerMessageCallback(&attysECGCommMessage);
 	attysScan.attysComm[0]->start();
 }
 
@@ -378,7 +375,7 @@ void MainWindow::slotRecordECG()
 	}
 	recordingOn = recordECG->isChecked();
 	sampleNumber = 0;
-	start_time = time(NULL);
+	start_time = 0;
 	if (recordingOn) {
 		setWindowTitle(QString("attys-ecg: recording ") + fileName);
 	}
@@ -402,8 +399,7 @@ void MainWindow::timerEvent(QTimerEvent *) {
 	dataPlotAccY->replot();
 	dataPlotAccZ->replot();
 	if (recordingOn) {
-		double t = (double)sampleNumber / sampling_rate;
-		QString tRecString = QString::number(((int)t));
+		QString tRecString = QString::number(current_secs);
 		statusLabel->setText("Rec: t=" + tRecString+" sec");
 	}
 	else {
@@ -412,7 +408,7 @@ void MainWindow::timerEvent(QTimerEvent *) {
 }
 
 
-void MainWindow::hasData(float, float *sample)
+void MainWindow::hasData(double t, float *sample)
 {
 	double y1 = sample[AttysComm::INDEX_Analogue_channel_1];
 	double y2 = sample[AttysComm::INDEX_Analogue_channel_2];
@@ -493,8 +489,11 @@ void MainWindow::hasData(float, float *sample)
 	if (ecgFile && (recordECG->isChecked()))
 	{
 		char s = '\t';
-		double t = (double)sampleNumber / sampling_rate;
-		fprintf(ecgFile, "%e%c", t, s);
+		if (0 == start_time) {
+			start_time = t;
+		}
+		current_secs = (int)round(t - start_time);
+		fprintf(ecgFile, "%e%c", t - start_time, s);
 		fprintf(ecgFile, "%e%c", I, s);
 		fprintf(ecgFile, "%e%c", II, s);
 		fprintf(ecgFile, "%e%c", III, s);

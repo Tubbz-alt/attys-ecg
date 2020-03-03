@@ -7,7 +7,7 @@ for Windows/Linux
 
 # Installation
 
-## Linux / MacOS
+## Linux
 
 You need the following libraries to compile and run the program:
 
@@ -18,6 +18,22 @@ You need the following libraries to compile and run the program:
 
 Run "qmake", which generates a Makefile and "make" to compile
 everything.
+
+## MacOS packages
+
+Add these two taps
+
+```
+brew tap berndporr/dsp
+brew tap glasgowneuro/attys
+```
+
+and install attys-ecg
+
+```
+brew install attys-ecg
+```
+
 
 ## Windows
 * Install: Visual Studio 2017 community edition

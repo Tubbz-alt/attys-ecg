@@ -403,7 +403,11 @@ void MainWindow::timerEvent(QTimerEvent *) {
 		statusLabel->setText("Rec: t=" + tRecString+" sec");
 	}
 	else {
-		statusLabel->setText("");
+		if (attysScan.attysComm[0]->getIsCharging()) {
+			statusLabel->setText("! Disconnect the charger before !\n! attaching any electrodes !");
+		} else {
+			statusLabel->setText("");
+		}
 	}
 }
 

@@ -34,8 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	setStyleSheet("background-color:rgb(32,32,32);color: white;");
 	setAutoFillBackground( true );
 
-	attysScan.attysComm[0]->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);
-	sampling_rate = attysScan.attysComm[0]->getSamplingRateInHz();
+	attysScan.getAttysComm(0)->setAdc_samplingrate_index(AttysComm::ADC_RATE_250HZ);
+	sampling_rate = attysScan.getAttysComm(0)->getSamplingRateInHz();
 
 	rr_det1 = new ECG_rr_det();
 	rr_det2 = new ECG_rr_det();
@@ -45,17 +45,17 @@ MainWindow::MainWindow(QWidget *parent) :
 	rr_det2->setRrListener(bPMCallback2);
 
 	attysCallback = new AttysCallback(this);
-	attysScan.attysComm[0]->registerCallback(attysCallback);
+	attysScan.getAttysComm(0)->registerCallback(attysCallback);
 
 	// set the PGA to max gain
-	attysScan.attysComm[0]->setAdc0_gain_index(AttysComm::ADC_GAIN_6);
+	attysScan.getAttysComm(0)->setAdc0_gain_index(AttysComm::ADC_GAIN_6);
 
 	// connect both channels so that we can use just 3 electrodes
-	attysScan.attysComm[0]->setAdc0_mux_index(AttysComm::ADC_MUX_ECG_EINTHOVEN);
-	attysScan.attysComm[0]->setAdc1_mux_index(AttysComm::ADC_MUX_ECG_EINTHOVEN);
+	attysScan.getAttysComm(0)->setAdc0_mux_index(AttysComm::ADC_MUX_ECG_EINTHOVEN);
+	attysScan.getAttysComm(0)->setAdc1_mux_index(AttysComm::ADC_MUX_ECG_EINTHOVEN);
 
-	attysScan.attysComm[0]->setAccel_full_scale_index(AttysComm::ACCEL_16G);
-	minAcc = -16 * attysScan.attysComm[0]->oneG;
+	attysScan.getAttysComm(0)->setAccel_full_scale_index(AttysComm::ACCEL_16G);
+	minAcc = -16 * attysScan.getAttysComm(0)->oneG;
 	maxAcc = -minAcc;
 
 	// 50Hz or 60Hz mains notch filter
@@ -284,13 +284,13 @@ MainWindow::MainWindow(QWidget *parent) :
 	// Generate timer event every 50ms
 	startTimer(50);
 
-	attysScan.attysComm[0]->start();
+	attysScan.getAttysComm(0)->start();
 }
 
 MainWindow::~MainWindow()
 {
-	attysScan.attysComm[0]->unregisterCallback();
-	attysScan.attysComm[0]->quit();
+	attysScan.getAttysComm(0)->unregisterCallback();
+	attysScan.getAttysComm(0)->quit();
 	if (ecgFile) {
 		fclose(ecgFile);
 	}
@@ -403,7 +403,7 @@ void MainWindow::timerEvent(QTimerEvent *) {
 		statusLabel->setText("Rec: t=" + tRecString+" sec");
 	}
 	else {
-		if (attysScan.attysComm[0]->getIsCharging()) {
+		if (attysScan.getAttysComm(0)->getIsCharging()) {
 			statusLabel->setText("! Disconnect the charger before !\n! attaching any electrodes !");
 		} else {
 			statusLabel->setText("");

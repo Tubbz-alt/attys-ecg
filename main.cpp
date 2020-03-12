@@ -38,7 +38,7 @@ int main(int argc, char **argv)
   }
         
   // none detected
-  if (attysScan.nAttysDevices<1) {
+  if (attysScan.getNAttysDevices()<1) {
 	  printf("No Attys present or not paired.\n");
 	  splash->showMessage("Cound not connect\nand/or no devices paired.");
 	  app.processEvents();

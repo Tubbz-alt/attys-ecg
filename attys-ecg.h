@@ -159,7 +159,7 @@ public:
 
 private:
 	void clearAllRingbuffers() {
-		attysScan.attysComm[0]->resetRingbuffer();
+		attysScan.getAttysComm(0)->resetRingbuffer();
 	}
 
 	double start_time = 0;

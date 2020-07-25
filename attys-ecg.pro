@@ -54,7 +54,7 @@ LIBS += \
 
 INCLUDEPATH += /usr/local/include
 
-include ( /usr/local/Cellar/qwt/6.1.4/features/qwt.prf )
+include ( /usr/local/Cellar/qwt/6.1.5/features/qwt.prf )
 
 TMAKE_CXXFLAGS += -fno-exceptions
 
